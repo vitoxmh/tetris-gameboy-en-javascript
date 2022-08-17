@@ -238,7 +238,7 @@ class tetris{
 
         this.drawMatriz(this.player.matriz,this.player.pos,1);
     
-        //drawMatrizNext(player.next,{x:1,y:1});
+        this.drawMatrizNext(this.player.next,{x:12,y:11});
     
     }
     
@@ -252,16 +252,7 @@ class tetris{
             row.forEach((value,x) => {
     
                 if(value !== 0){
-                    
-
-                    //this.ctx.fillStyle = "#000";
-                    //this.ctx.fillRect((40*x) + (offset.x*40) + 79, (40*y) + (offset.y*40) , 40 ,40); 
-                    
-                    if(type == 1 && this.statusRotate == 1){
-
-
-
-                    }
+                            
                 
                     this.sprite.renderPiece(this.colors[value],(40*x) + (offset.x*40) + 79,(40*y) + (offset.y*40) );
     
@@ -269,6 +260,80 @@ class tetris{
     
             });
         });
+    
+    }
+
+
+
+    drawMatrizNext(matriz,offset){
+
+        this.ctx.fillStyle = "#F8F8F8";
+        this.ctx.fillRect(599,520,160,160);
+    
+        
+    
+        const pos = {
+            x: 0,
+            y: 0
+        }
+    
+        matriz.forEach((row,y) => {
+    
+            row.forEach((value,x) => {
+    
+                if(value !== 0){
+                    
+                    if(value == 9){
+                        
+                        offset.x = 15.5;
+                        offset.y = 14;
+                       
+    
+                    }else if(value == 4){
+    
+                        offset.x = 15.8;
+                        offset.y = 13.3;
+                       
+                    }else if(value == 3){
+    
+                        offset.x = 15;
+                        offset.y = 13.5;
+                       
+    
+                    }else if(value == 1){
+    
+                        offset.x = 15.4;
+                        offset.y = 13.2;
+
+                       
+                    }else if(value == 2){
+    
+                        offset.x = 15.9;
+                        offset.y = 14;
+                       
+                    }
+     
+                    else if(value == 8){
+    
+                        offset.x = 15.5;
+                        offset.y = 14;
+                       
+    
+                    }else if(value == 5 || value == 6 || value == 7){
+    
+                        offset.x = 14.5;
+                        offset.y = 12.95;
+                       
+                    }
+    
+                
+                    this.sprite.renderPiece(this.colors[value],(40*x) + (offset.x*40),(40*y) + (offset.y*40) );
+    
+                }
+    
+            });
+        });
+    
     
     }
     
@@ -385,7 +450,7 @@ class tetris{
 
     playerReset(){
         const pieces = 'ILJOTSZ';
-        //const pieces = 'IIIIIII';
+        //const pieces = 'ZZZZZZZ';
 
         this.statusRotate = 0;
 

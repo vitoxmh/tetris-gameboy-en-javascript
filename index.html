@@ -14,15 +14,16 @@
     <canvas id="game" width="799" height="719"></canvas>
 </div>
 <script src="js/sprite.js"></script>
+<script src="js/musicManager.js"></script>
 <script src="js/gameManager.js"></script>
 <!--script src="js/game.js"></!script-->
 <script src="js/tetris.js"></script>
 <script>
-  
+    var m = new musicManager();
     var t = new tetris("game");
     var game_Manager = new gameManager();
 
-   
+    m.play("Loginska");
     t.playerReset();
     t.update();
 
