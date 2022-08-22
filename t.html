@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var grid = [
+            [0,0,0,0,0],
+            [0,0,0,0,0],
+            [0,0,1,0,0],
+            [0,1,1,1,0],
+            [0,0,1,0,0],
+            [0,1,0,1,0],
+            [0,1,0,1,0],
+            [1,1,1,1,1],
+            [1,1,1,1,1],
+           
+        ];    
+
+        var lines = [];
+
+        grid.map((row,b) =>{
+
+            let countRow = 0;
+         
+           row.map((colum,a) => {
+
+               if(grid[b][a] != 0){
+                    countRow++;
+               }
+
+           });
+
+           if(countRow == 5){
+
+                lines.push(b);
+
+           }
+
+
+        });
+
+        lines.map((a,b) =>{
+
+            console.log(a)
+            var row = grid.splice(a,1)[0].fill(0);
+
+            grid.unshift(row);
+
+        });
+
+        console.table(grid)
+    
+
+    </script>
+</body>
+</html>

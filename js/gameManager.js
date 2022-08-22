@@ -4,6 +4,8 @@ class gameManager{
     score = 0;
     level = 1;
     lines = 0;
+    music = 1;
+    pause = false;
     
 
     constructor(){

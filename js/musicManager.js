@@ -47,6 +47,7 @@ class musicManager{
 
         }
         this.audio.loop = true;
+        
         this.audio.play();
 
     }
