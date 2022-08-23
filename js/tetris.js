@@ -5,16 +5,24 @@ class tetris{
     sprite = null;
     grid = null;
     dropCounter = 0;
+    dropCounterOver = 0;
     dropInterval = 1000;
     lastTime = 0;
+    lastTimeOver = 0;
     block = new Image();
     indiceTem = [];
     rotateI = 0;
     statusRotate = 0;
     clearLines = false;
-
+    clearGameOver = 0;
+    gridGameOver = null;
     statusClear = false;
     temGrid = null;
+    posOver = {
+        x: 0,
+        y: 18,
+        statusPlay: 0
+    }
 
     //const pieces = 'ILJOTSZ';
     colors = [
@@ -158,7 +166,6 @@ class tetris{
 
     
         ],
-        ,
         [
             [1,1,1,1,1,1,1,1], //J - 13
             [1,4,4,4,4,4,4,1],
@@ -179,6 +186,17 @@ class tetris{
             [3,3,3,3,3,3,3,3],
             [3,3,3,3,3,3,3,3],
             [3,3,3,3,3,3,3,3],
+        ],
+        [
+            [1,1,1,1,1,1,1,1], //bloque game over - 15
+            [1,3,3,3,3,3,3,1],
+            [1,3,4,4,4,4,2,1],
+            [1,3,4,4,4,4,2,1],
+            [1,3,4,4,4,4,2,1],
+            [1,3,4,4,4,4,2,1],
+            [1,2,2,2,2,2,2,1],
+            [1,1,1,1,1,1,1,1] 
+           
         ]
     ];
     
@@ -197,22 +215,25 @@ class tetris{
         this.ctx = this.canvas.getContext('2d');
         this.sprite = new sprite(this.ctx);
         //this.ctx.scale(1,1);
-        this.grid = this.createMatriz(10,18);
-        this.temGrid = this.createMatriz(10,18);
+        this.grid = this.createMatriz(10,18,0);
+        this.temGrid = this.createMatriz(10,18,0);
+        this.gridGameOver = this.createMatriz(10,18,14);
 
         this.block = "img/block.png";
         this.background();
         this.move();
 
+        
+
     }
 
-    createMatriz(w,h){
+    createMatriz(w,h,d){
 
         const matriz = [];
 
         while(h--){
 
-            matriz.push(new Array(w).fill(0));
+            matriz.push(new Array(w).fill(d));
 
         }
 
@@ -242,7 +263,7 @@ class tetris{
             this.draw();
             this.updateScore();
 
-            console.log("Develop instagram @juego_terminado");
+          
             requestAnimationFrame(this.update.bind(this));  
 
         }
@@ -488,7 +509,7 @@ class tetris{
 
     playerReset(){
         const pieces = 'ILJOTSZ';
-        //const pieces = 'LJLJLJLJ';
+        //const pieces = 'IIIIIII';
 
         this.statusRotate = 0;
 
@@ -515,68 +536,117 @@ class tetris{
         this.player.next =  this.createPiece(indice);
         
         this.player.pos.x = (this.grid[0].length / 2 | 0) -(this.player.matriz[0].length / 2 | 0);
-
-
+      
+ 
         this.player.pos.y = 0;
+        
+        
     
-        if(this.collide(this.grid,this.player)){
+        if(this.collide(this.grid,this.player) && !game_Manager.gameOver){
     
     
         
                 game_Manager.gameOver = true;
+                m.stop();
+                s.play("game_over");
+                this.animationGameOver();
+              
+
+                requestAnimationFrame(this.animationGameOver.bind(this));  
+
     
         }
         
     }
 
 
+    animationGameOver(time = 0){
 
-    gridSweep(){
 
-        /*
-        let rowCount = 1;
-        let nLineas = 0;
 
-        outer: for(let y =  this.grid.length - 1; y > 0; --y){
-            for(let x = 0; x < this.grid[y].length; ++x){
-                if(this.grid[y][x] === 0){
-       
-                    continue outer;
-                }
+
+      
+
+        const deltaTime =  time - this.lastTimeOver;
+
+        this.lastTimeOver = time;
+
+
+        this.dropCounterOver += deltaTime;
+
+        
+        if(this.dropCounterOver > 45 ){
+
+            this.dropCounterOver = 0;
+
+            if(this.posOver.y == 0){
+
+                this.clearGameOver++;
                 
             }
 
-            //this.statusClear = true;
+           for(var x = 0; x < 10; x++){
 
-            console.log(y+"<====")
+                if(this.clearGameOver == 0)
+                {
+                    this.sprite.renderPiece(this.colors[15],((x*40)+79),((this.posOver.y-1)*40) );
 
-            
-            const row = this.grid.splice(y,1)[0].fill(0);
-            this.grid.unshift(row);
-    
-            rowCount *= 2;
-            nLineas++;
+                }else{
 
-            this.player.score += rowCount * 10;
-            this.player.lines++;
+                    this.sprite.renderPiece(this.colors[14],((x*40)+79),((this.posOver.y-1)*40) );
 
-            y++;
-            game_Manager.score += rowCount * 100;
-            game_Manager.lines++;
-    
-            rowCount *= 2;
- 
+                }
+              
+
+               if(this.posOver.y == -1){
+
+                    this.posOver.y = 19;
+                    this.clearGameOver++;
+                   
+
+             }
+
+           }
+           
+
+
+            this.posOver.y--;
+
 
            
+        }
+
   
-            if(game_Manager.lines % 10 === 0) game_Manager.level++;
+        if(this.clearGameOver == 3){
 
-         
+           if(this.posOver.statusPlay == 0){
+            console.log("ddfffffff");
+            this.renderGameOver();
+            m.loop(false);
+            m.play("GameOver"); 
+            m.loop(false);
 
-    
-        }*/
+            this.posOver.statusPlay++;
+
+           }
+           
+            
+           
+            
+        }else{
+
+           
+
+            requestAnimationFrame(this.animationGameOver.bind(this));  
+
+        }
+
+        
+
+    }
 
 
+    gridSweep(){
 
 
         var lines = [];
@@ -612,18 +682,6 @@ class tetris{
 
        }
 
-
-        /*
-         lines.map((a,b) =>{
-
-            console.log(a)
-            //var row = this.grid.splice(a,1)[0].fill(0);
-
-            //this.grid.unshift(row);
-
-        });*/
-
-
  
     }
 
@@ -647,6 +705,13 @@ class tetris{
         
         game_Manager.lines =  game_Manager.lines +  lines.length;
         game_Manager.score += lines.length * 100;
+
+        if(game_Manager.lines % 10 === 0){
+
+            game_Manager.level++;
+
+            s.play("level_up_jingle");
+        }
 
         const myInterval = setInterval(function(){
 
@@ -794,7 +859,7 @@ class tetris{
 
         document.addEventListener("keydown", e => {
 
-            if(!this.statusClear){
+            if(!this.statusClear && !game_Manager.gameOver){
                 if(e.keyCode === 40){
                     this.playerDrop();
                     //s.play("move_piece");
@@ -808,7 +873,11 @@ class tetris{
                     s.play("rotate");
                     this.playerRotate();
                 }
+
+       
             }
+
+
         
         });
 
@@ -1039,6 +1108,47 @@ class tetris{
     }
 
 
+    renderGameOver(){
+
+
+        this.sprite.renderSprite(129,90,this.sprite.get("sign_game_over"));
+        this.sprite.renderSprite(204,165,this.sprite.get("G"));
+        this.sprite.renderSprite(244,165,this.sprite.get("A"));
+        this.sprite.renderSprite(284,165,this.sprite.get("M"));
+        this.sprite.renderSprite(324,165,this.sprite.get("E"));
+        this.ctx.fillStyle = this.sprite.color[4];
+        this.ctx.fillRect(199,200,160,5);
+        this.sprite.renderSprite(204,245,this.sprite.get("O"));
+        this.sprite.renderSprite(244,245,this.sprite.get("V"));
+        this.sprite.renderSprite(284,245,this.sprite.get("E"));
+        this.sprite.renderSprite(324,245,this.sprite.get("R"));
+
+        this.ctx.fillStyle = this.sprite.color[4];
+        this.ctx.fillRect(199,280,160,5);
+
+        this.sprite.renderSprite(124,485,this.sprite.get("P"));
+        this.sprite.renderSprite(164,485,this.sprite.get("L"));
+        this.sprite.renderSprite(204,485,this.sprite.get("E"));
+        this.sprite.renderSprite(244,485,this.sprite.get("A"));
+        this.sprite.renderSprite(284,485,this.sprite.get("S"));
+        this.sprite.renderSprite(324,485,this.sprite.get("E"));
+
+
+        this.sprite.renderSprite(164,565,this.sprite.get("T"));
+        this.sprite.renderSprite(204,565,this.sprite.get("R"));
+        this.sprite.renderSprite(244,565,this.sprite.get("Y"));
+
+
+        this.sprite.renderSprite(204,645,this.sprite.get("A"));
+        this.sprite.renderSprite(244,645,this.sprite.get("G"));
+        this.sprite.renderSprite(284,645,this.sprite.get("A"));
+        this.sprite.renderSprite(329,645,this.sprite.get("I"));
+        this.sprite.renderSprite(364,645,this.sprite.get("NN"));
+
+        this.sprite.renderSprite(404,645,this.sprite.get("❤"));
+
+       
+    }
 
 
 

@@ -44,6 +44,11 @@ class musicManager{
                 this.audio = new Audio(this.path+"Loginska.mp3");
 
             break;
+            case "GameOver":
+
+                this.audio = new Audio(this.path+"Game_Over.ogg");
+
+            break;
 
         }
         this.audio.loop = true;
@@ -56,6 +61,14 @@ class musicManager{
     stop(){
 
         this.audio.pause();
+    }
+
+
+
+    loop(status){
+
+        this.audio.loop = status;
+
     }
 
 }

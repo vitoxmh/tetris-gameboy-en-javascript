@@ -33,6 +33,17 @@ class soundManager{
 
                 this.audio = new Audio(this.path+"tetris_4_lines.wav");
             break;
+            case "level_up_jingle":
+
+                this.audio = new Audio(this.path+"level_up_jingle.wav");
+            break;
+            case "game_over":
+
+                this.audio = new Audio(this.path+"game_over.wav");
+            break;
+
+
+           
 
 
             
