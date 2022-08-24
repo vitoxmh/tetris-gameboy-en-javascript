@@ -14,22 +14,31 @@
     <canvas id="game" width="799" height="719"></canvas>
 </div>
 <script src="js/sprite.js"></script>
+<script src="js/scoreScene.js"></script>
 <script src="js/musicManager.js"></script>
 <script src="js/soundManager.js"></script>
 <script src="js/gameManager.js"></script>
-<!--script src="js/game.js"></!script-->
 <script src="js/tetris.js"></script>
+<script src="js/modeScene.js"></script>
+
+
+
+
 <script>
-    var m = new musicManager();
-    var t = new tetris("game");
-    var s = new soundManager();
+    //var m = new musicManager();
+   
+    //var sceneScore = new scoreScene("game");
 
-    var game_Manager = new gameManager();
+
+
+    var sceneMode = new modeScene("game");
+
+    //var s = new soundManager();
+
+    //var game_Manager = new gameManager();
  
-    m.play("typea");
-    t.playerReset();
-    t.update();
-
+    //m.play("typea");
+   
 </script>
 
 </body>

@@ -1110,6 +1110,9 @@ class tetris{
 
     renderGameOver(){
 
+        this.sprite.renderSprite(144,394,this.sprite.get("I"));
+        this.sprite.renderSprite(174,394,this.sprite.get("G"));
+
 
         this.sprite.renderSprite(129,90,this.sprite.get("sign_game_over"));
         this.sprite.renderSprite(204,165,this.sprite.get("G"));

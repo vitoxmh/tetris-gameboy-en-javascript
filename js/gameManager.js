@@ -6,6 +6,11 @@ class gameManager{
     lines = 0;
     music = 1;
     pause = false;
+    top_Score = {
+        1:0,
+        2:0,
+        3:0
+    }
     
 
     constructor(){
