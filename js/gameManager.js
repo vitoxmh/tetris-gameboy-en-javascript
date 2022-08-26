@@ -6,6 +6,7 @@ class gameManager{
     lines = 0;
     music = 1;
     pause = false;
+    scene = 2;
     top_Score = {
         1:0,
         2:0,
