@@ -1,16 +1,28 @@
 class gameManager{
 
     gameOver = false;
-    score = 0;
-    level = 1;
+    score = 99999;
+    level = 0;
     lines = 0;
     music = 1;
     pause = false;
-    scene = 2;
-    top_Score = {
-        1:0,
-        2:0,
-        3:0
+    scene = 1;
+    mode = 0;
+
+    
+    topScore = {
+        first:{
+            score: 1000,
+            name: "YO"
+        },
+        second:{
+            score: 500,
+            name: "TU"
+        },
+        third:{
+            score: 100,
+            name: "EL" 
+        }
     }
     
 

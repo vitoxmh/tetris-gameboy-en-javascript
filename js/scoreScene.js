@@ -28,15 +28,12 @@ class scoreScene{
         this.ctx.fillRect(28,31,741,660);
 
 
-       
-
         for(var x = 0; x <= 18; x++){
 
             for(var y = 0; y <= 16; y++){
 
                 var dx = ((x*40)+28);
                 var dy = ((y*40)+31);
-                console.log(dx+" "+dy)
                 this.sprite.renderSprite(dx,dy,this.sprite.get("bg_dot"));
 
 
@@ -89,13 +86,11 @@ class scoreScene{
         this.ctx.fillRect(53,511,690,140);
         this.ctx.fillRect(328,456,20,10);
 
-      
 
         this.ctx.fillStyle = this.sprite.color[3];
         this.ctx.fillRect(58,516,80,130);
         this.ctx.fillRect(143,516,595,130);
         
-
 
         this.sprite.renderSprite(203,446,this.sprite.get("T"));
         this.sprite.renderSprite(243,446,this.sprite.get("O"));

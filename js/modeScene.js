@@ -9,6 +9,7 @@ class modeScene{
     configMode = 0;
     music = 1;
     count = 0;
+    countModeMusic = 0;
     modeType = true;
     typeMusic = false;
 
@@ -20,6 +21,10 @@ class modeScene{
         this.ctx = this.canvas.getContext('2d');
         this.sprite = new sprite(this.ctx);
         this.configMode = 0;
+
+        this.ctx.fillStyle = this.sprite.color[3];
+        this.ctx.fillRect(0,0,900,600);  
+        m.stop();
         m.play("typea");
         this.renderBackground();
        
@@ -122,10 +127,14 @@ class modeScene{
         if(this.dropCounter > 200 ){
          
             this.dropCounter=0;
+            if(game_Manager.scene == 2){
 
-            this.selectMode();
-            this.selectMusic();
-            this.count++;
+                
+                this.selectMode();
+                this.selectMusic();
+                this.count++;
+
+            }
 
          
         }
@@ -400,7 +409,7 @@ class modeScene{
             
         
 
-            if(game_Manager.scene == 2){
+            if(game_Manager.scene == 2 && !this.typeMusic){
       
 
                 if(e.keyCode === 40){
@@ -413,7 +422,9 @@ class modeScene{
                         this.count = 0;
                         this.configMode  = 0;
                         this.selectMode();
-                        s.play("move_piece");
+                        s.play("menu_sound");
+                        game_Manager.mode = 0;
+              
 
                     }
                    
@@ -425,8 +436,10 @@ class modeScene{
 
                         this.count = 0;
                         this.configMode  = 1;
+                        game_Manager.mode = 1;
                         this.selectMode();
-                        s.play("move_piece");
+                        s.play("menu_sound");
+              
 
                     }
                    
@@ -442,54 +455,68 @@ class modeScene{
                    
                 }
 
+            }else  if(e.keyCode === 13 && this.typeMusic && game_Manager.scene == 2){
+
+                game_Manager.scene = 3;
+
+                var levelSel = new levelScene("game");
+
             }
+
+
+
 
         
        
-            if(this.typeMusic && this.music == 1){
+            if(this.typeMusic && this.music == 1 && game_Manager.scene == 2){
 
               
 
                 if(e.keyCode === 39){
                     // RIGTH
                     this.music = 2;
-                    s.play("move_piece");
+                    game_Manager.music = 2;
+                    s.play("menu_sound");
                     m.stop();
                     m.play("typeb");
 
                 }else if(e.keyCode === 40){
                     // DOWN
                     this.music = 3;
-                    s.play("move_piece");
+                    game_Manager.music = 3;
+                    s.play("menu_sound");
                     m.stop();
                     m.play("typec");
                 
                 }
 
-            }else if(this.typeMusic && this.music == 2){
+            }else if(this.typeMusic && this.music == 2 && game_Manager.scene == 2){
                
                 if(e.keyCode === 37){
                     // LEFT
                     this.music = 1;
-                    s.play("move_piece");
+                    game_Manager.music = 1;
+                    s.play("menu_sound");
                     m.stop();
                     m.play("typea");
 
                 }else if(e.keyCode === 40){
                     // DOWN
                     this.music = 4;
-                    s.play("move_piece");
+                    game_Manager.music = 4;
+                    s.play("menu_sound");
                     m.stop();
-                    m.play("Karinka");
+                    m.play("Loginska");
                 
                 }
 
-            }else if(this.typeMusic && this.music == 3){
+            }else if(this.typeMusic && this.music == 3 && game_Manager.scene == 2){
                
                 if(e.keyCode === 38){
                     // UP
                     this.music = 1;
-                    s.play("move_piece");
+                    game_Manager.music = 1;
+                    s.play("menu_sound");
                     m.stop();
                     m.play("typea");
                     
@@ -497,31 +524,38 @@ class modeScene{
                 }else if(e.keyCode === 39){
                     // RIGTH
                     this.music = 4;
-                    s.play("move_piece");
+                    game_Manager.music = 4;
+                    s.play("menu_sound");
                     m.stop();
-                    m.play("Karinka");
+                    m.play("Loginska");
                 
                 }
 
-            }else if(this.typeMusic && this.music == 4){
+            }else if(this.typeMusic && this.music == 4 && game_Manager.scene == 2){
               
                 if(e.keyCode === 38){
                     // UP
                     this.music = 2;
-                    s.play("move_piece");
+                    game_Manager.music = 2;
+                    s.play("menu_sound");
                     m.stop();
                     m.play("typeb");
 
                 }else if(e.keyCode === 37){
                     // LEFT
                     this.music = 3;
-                    s.play("move_piece");
+                    game_Manager.music = 3;
+                    s.play("menu_sound");
                      m.stop();
                     m.play("typec");
                 
                 }
 
             }
+            
+            
+            
+           
 
 
         });
@@ -532,12 +566,91 @@ class modeScene{
 
     selectMode(){
 
-        if(this.modeType == true){
+        if(game_Manager.scene == 2){
 
-  
-            if(this.configMode == 0){
+            if(this.modeType == true){
 
-                if(this.count%2 == 0){
+    
+                if(this.configMode == 0){
+
+                    if(this.count%2 == 0){
+
+
+                        this.sprite.renderSprite(125,207,this.sprite.get("A"));
+                        this.sprite.renderSprite(205,207,this.sprite.get("T"));
+                        this.sprite.renderSprite(245,207,this.sprite.get("Y"));
+                        this.sprite.renderSprite(285,207,this.sprite.get("P"));
+                        this.sprite.renderSprite(325,207,this.sprite.get("E"));
+                        this.ctx.fillStyle = this.sprite.color[0];
+                        this.ctx.fillRect(170,217,20,10);
+
+
+                    }else{
+
+                        this.sprite.renderSpriteColor(125,207,this.sprite.get("A"),4);
+                        this.sprite.renderSpriteColor(205,207,this.sprite.get("T"),4);
+                        this.sprite.renderSpriteColor(245,207,this.sprite.get("Y"),4);
+                        this.sprite.renderSpriteColor(285,207,this.sprite.get("P"),4);
+                        this.sprite.renderSpriteColor(325,207,this.sprite.get("E"),4);
+                        this.ctx.fillStyle = this.sprite.color[4];
+                        this.ctx.fillRect(170,217,20,10);
+                    }
+
+
+                    this.sprite.renderSpriteColor(435,207,this.sprite.get("B"),4);
+                    this.sprite.renderSpriteColor(525,207,this.sprite.get("T"),4);
+                    this.sprite.renderSpriteColor(565,207,this.sprite.get("Y"),4);
+                    this.sprite.renderSpriteColor(605,207,this.sprite.get("P"),4);
+                    this.sprite.renderSpriteColor(645,207,this.sprite.get("E"),4);
+                    this.ctx.fillStyle = this.sprite.color[4];
+                    this.ctx.fillRect(490,217,20,10);
+                
+
+                }else{
+                    
+
+                    if(this.count%2 == 0){
+
+                        this.sprite.renderSprite(435,207,this.sprite.get("B"));
+                        this.sprite.renderSprite(525,207,this.sprite.get("T"));
+                        this.sprite.renderSprite(565,207,this.sprite.get("Y"));
+                        this.sprite.renderSprite(605,207,this.sprite.get("P"));
+                        this.sprite.renderSprite(645,207,this.sprite.get("E"));
+                        this.ctx.fillStyle = this.sprite.color[0];
+                        this.ctx.fillRect(490,217,20,10);
+
+                    }else{
+
+
+                        this.sprite.renderSpriteColor(435,207,this.sprite.get("B"),4);
+                        this.sprite.renderSpriteColor(525,207,this.sprite.get("T"),4);
+                        this.sprite.renderSpriteColor(565,207,this.sprite.get("Y"),4);
+                        this.sprite.renderSpriteColor(605,207,this.sprite.get("P"),4);
+                        this.sprite.renderSpriteColor(645,207,this.sprite.get("E"),4);
+                        this.ctx.fillStyle = this.sprite.color[4];
+                        this.ctx.fillRect(490,217,20,10);
+
+
+                    }
+
+
+
+                        this.sprite.renderSpriteColor(125,207,this.sprite.get("A"),4);
+                        this.sprite.renderSpriteColor(205,207,this.sprite.get("T"),4);
+                        this.sprite.renderSpriteColor(245,207,this.sprite.get("Y"),4);
+                        this.sprite.renderSpriteColor(285,207,this.sprite.get("P"),4);
+                        this.sprite.renderSpriteColor(325,207,this.sprite.get("E"),4);
+                        this.ctx.fillStyle = this.sprite.color[4];
+                        this.ctx.fillRect(170,217,20,10);
+
+                }
+            
+
+            }else{
+
+
+
+                if(this.configMode == 0){
 
 
                     this.sprite.renderSprite(125,207,this.sprite.get("A"));
@@ -549,43 +662,6 @@ class modeScene{
                     this.ctx.fillRect(170,217,20,10);
 
 
-                }else{
-
-                    this.sprite.renderSpriteColor(125,207,this.sprite.get("A"),4);
-                    this.sprite.renderSpriteColor(205,207,this.sprite.get("T"),4);
-                    this.sprite.renderSpriteColor(245,207,this.sprite.get("Y"),4);
-                    this.sprite.renderSpriteColor(285,207,this.sprite.get("P"),4);
-                    this.sprite.renderSpriteColor(325,207,this.sprite.get("E"),4);
-                    this.ctx.fillStyle = this.sprite.color[4];
-                    this.ctx.fillRect(170,217,20,10);
-                }
-
-
-                this.sprite.renderSpriteColor(435,207,this.sprite.get("B"),4);
-                this.sprite.renderSpriteColor(525,207,this.sprite.get("T"),4);
-                this.sprite.renderSpriteColor(565,207,this.sprite.get("Y"),4);
-                this.sprite.renderSpriteColor(605,207,this.sprite.get("P"),4);
-                this.sprite.renderSpriteColor(645,207,this.sprite.get("E"),4);
-                this.ctx.fillStyle = this.sprite.color[4];
-                this.ctx.fillRect(490,217,20,10);
-            
-
-            }else{
-                
-
-                if(this.count%2 == 0){
-
-                    this.sprite.renderSprite(435,207,this.sprite.get("B"));
-                    this.sprite.renderSprite(525,207,this.sprite.get("T"));
-                    this.sprite.renderSprite(565,207,this.sprite.get("Y"));
-                    this.sprite.renderSprite(605,207,this.sprite.get("P"));
-                    this.sprite.renderSprite(645,207,this.sprite.get("E"));
-                    this.ctx.fillStyle = this.sprite.color[0];
-                    this.ctx.fillRect(490,217,20,10);
-
-                }else{
-
-
                     this.sprite.renderSpriteColor(435,207,this.sprite.get("B"),4);
                     this.sprite.renderSpriteColor(525,207,this.sprite.get("T"),4);
                     this.sprite.renderSpriteColor(565,207,this.sprite.get("Y"),4);
@@ -595,9 +671,16 @@ class modeScene{
                     this.ctx.fillRect(490,217,20,10);
 
 
-                }
+                }else{
 
 
+                    this.sprite.renderSprite(435,207,this.sprite.get("B"));
+                    this.sprite.renderSprite(525,207,this.sprite.get("T"));
+                    this.sprite.renderSprite(565,207,this.sprite.get("Y"));
+                    this.sprite.renderSprite(605,207,this.sprite.get("P"));
+                    this.sprite.renderSprite(645,207,this.sprite.get("E"));
+                    this.ctx.fillStyle = this.sprite.color[0];
+                    this.ctx.fillRect(490,217,20,10);
 
                     this.sprite.renderSpriteColor(125,207,this.sprite.get("A"),4);
                     this.sprite.renderSpriteColor(205,207,this.sprite.get("T"),4);
@@ -607,61 +690,14 @@ class modeScene{
                     this.ctx.fillStyle = this.sprite.color[4];
                     this.ctx.fillRect(170,217,20,10);
 
+                }
+
+
+
+
             }
         
-
-        }else{
-
-
-
-            if(this.configMode == 0){
-
-
-                this.sprite.renderSprite(125,207,this.sprite.get("A"));
-                this.sprite.renderSprite(205,207,this.sprite.get("T"));
-                this.sprite.renderSprite(245,207,this.sprite.get("Y"));
-                this.sprite.renderSprite(285,207,this.sprite.get("P"));
-                this.sprite.renderSprite(325,207,this.sprite.get("E"));
-                this.ctx.fillStyle = this.sprite.color[0];
-                this.ctx.fillRect(170,217,20,10);
-
-
-                this.sprite.renderSpriteColor(435,207,this.sprite.get("B"),4);
-                this.sprite.renderSpriteColor(525,207,this.sprite.get("T"),4);
-                this.sprite.renderSpriteColor(565,207,this.sprite.get("Y"),4);
-                this.sprite.renderSpriteColor(605,207,this.sprite.get("P"),4);
-                this.sprite.renderSpriteColor(645,207,this.sprite.get("E"),4);
-                this.ctx.fillStyle = this.sprite.color[4];
-                this.ctx.fillRect(490,217,20,10);
-
-
-            }else{
-
-
-                this.sprite.renderSprite(435,207,this.sprite.get("B"));
-                this.sprite.renderSprite(525,207,this.sprite.get("T"));
-                this.sprite.renderSprite(565,207,this.sprite.get("Y"));
-                this.sprite.renderSprite(605,207,this.sprite.get("P"));
-                this.sprite.renderSprite(645,207,this.sprite.get("E"));
-                this.ctx.fillStyle = this.sprite.color[0];
-                this.ctx.fillRect(490,217,20,10);
-
-                this.sprite.renderSpriteColor(125,207,this.sprite.get("A"),4);
-                this.sprite.renderSpriteColor(205,207,this.sprite.get("T"),4);
-                this.sprite.renderSpriteColor(245,207,this.sprite.get("Y"),4);
-                this.sprite.renderSpriteColor(285,207,this.sprite.get("P"),4);
-                this.sprite.renderSpriteColor(325,207,this.sprite.get("E"),4);
-                this.ctx.fillStyle = this.sprite.color[4];
-                this.ctx.fillRect(170,217,20,10);
-
-            }
-
-
-
-
         }
-       
-    
     }
 
 

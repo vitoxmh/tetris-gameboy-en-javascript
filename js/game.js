@@ -5,13 +5,16 @@ class game{
     tiled = null;
     sprite = null;
     arrow = null;
-
+  
     constructor(canvas){
 
         this.canvas = document.getElementById(canvas);
         this.ctx = this.canvas.getContext('2d');
         this.ctx.scale(1,1);
         this.sprite = new sprite(this.ctx);
+
+
+        m.play("intro");
         
         this.ctx.fillStyle = this.sprite.color[1];
         this.ctx.fillRect(0,0,799,547);  
@@ -29,7 +32,7 @@ class game{
         this.ctx.fillRect(40,299,720,5);
        
   
- 
+        
 
  
 
@@ -56,7 +59,7 @@ class game{
         this.sprite.renderSprite(245,649,this.sprite.get("9"));
         this.sprite.renderSprite(285,649,this.sprite.get("8"));
         this.sprite.renderSprite(325,649,this.sprite.get("9"));
-        this.sprite.renderSprite(400,639,this.sprite.get("N"));
+        this.sprite.renderSprite(400,639,this.sprite.get("NN"));
         this.sprite.renderSprite(440,639,this.sprite.get("i"));
         this.sprite.renderSprite(455,654,this.sprite.get("n"));
         this.sprite.renderSprite(485,644,this.sprite.get("t"));
@@ -84,10 +87,41 @@ class game{
         this.ctx.fillRect(375,374,10,10);
         this.ctx.fillRect(655,334,10,10);  
 
+        this.ctx.fillStyle = this.sprite.color[3];
+        this.ctx.fillRect(15,39,770,240);
 
+
+        this.ctx.fillStyle = this.sprite.color[2];
+        this.ctx.fillRect(35,59,730,200);
+        this.ctx.fillRect(15,274,770,5);
+
+        this.ctx.fillStyle = this.sprite.color[3];
+        this.ctx.fillRect(40,64,720,190);
+
+        this.ctx.fillStyle = this.sprite.color[4];
+        this.ctx.fillRect(15,44,5,230);
+        this.ctx.fillRect(20,49,5,220);
+        this.ctx.fillRect(25,54,5,210);
+        this.ctx.fillRect(30,49,740,5);
+        this.ctx.fillRect(780,44,5,230);
+        this.ctx.fillRect(775,49,5,220);
+        this.ctx.fillRect(770,54,5,210);
+        
         
 
-        //his.loadTiled();
+
+
+        this.sprite.renderSprite(70,84,this.sprite.get("t_logo"));
+        this.sprite.renderSprite(200,84,this.sprite.get("e_logo"));
+        this.sprite.renderSprite(310,84,this.sprite.get("t_logo"));
+        this.sprite.renderSprite(440,84,this.sprite.get("r_logo"));
+        this.sprite.renderSprite(555,84,this.sprite.get("i_logo"));
+        this.sprite.renderSprite(600,84,this.sprite.get("s_logo"));
+
+
+        this.ctx.fillStyle = this.sprite.color[1];
+        this.ctx.fillRect(20,269,760,5);
+        this.ctx.fillRect(25,264,750,5);  
 
         this.move();
 
@@ -120,51 +154,44 @@ class game{
 
 
 
-
-    loadTiled(){
-
-        const options = {
-            method: "GET"
-          };
-
-          var _tiled = null;
-          
-          fetch("js/inicio.json", options)
-            .then(response => response.json())
-            .then(data => {
-
-                this.render(data);
-
-            });
-
-
-
-
-
-    }
-
-
     move(){
 
 
 
         document.addEventListener("keydown", e => {
+
+                if(game_Manager.scene == 1){
+
+
+                    if(e.keyCode === 37){
+                        //this.sprite.clearRender(440,565,this.sprite.get("arrow"));
+                        //this.sprite.renderSprite(45,564,this.sprite.get("arrow"));
+
+                        this.sprite.renderSpriteColor(45,564,this.sprite.get("arrow"),1);
+                        this.sprite.renderSpriteColor(440,564,this.sprite.get("arrow"),3);
+                        s.play("menu_sound");
+                       
     
-        
-                if(e.keyCode === 37){
-                    this.sprite.clearRender(440,565,this.sprite.get("arrow"));
-                    this.sprite.renderSprite(45,564,this.sprite.get("arrow"));
-                   
+    
+                    }else if(e.keyCode === 39){
+                       
+                        this.sprite.renderSpriteColor(45,564,this.sprite.get("arrow"),3);
+                        this.sprite.renderSpriteColor(440,564,this.sprite.get("arrow"),1);
+                        //this.sprite.clearRender(45,564,this.sprite.get("arrow"));
+                        //this.sprite.renderSprite(440,564,this.sprite.get("arrow"));
+                        s.play("menu_sound");
+                       
+                    }else if(e.keyCode === 13){
+    
+                            var sceneMode = new modeScene("game");
+                            game_Manager.scene = 2;
+
+    
+                    }
 
 
-                }else if(e.keyCode === 39){
-                   
-
-                    this.sprite.clearRender(45,564,this.sprite.get("arrow"));
-                    this.sprite.renderSprite(440,564,this.sprite.get("arrow"));
-                   
                 }
-        
+         
         
         });
 

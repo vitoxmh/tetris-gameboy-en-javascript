@@ -42,17 +42,10 @@ class soundManager{
                 this.audio = new Audio(this.path+"game_over.wav");
             break;
 
+            case "menu_sound":
 
-           
-
-
-            
-
-
-           
-
-
-           
+                this.audio = new Audio(this.path+"menu_sound.wav");
+            break; 
 
         }
       

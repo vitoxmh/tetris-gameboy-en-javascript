@@ -214,12 +214,17 @@ class tetris{
         this.canvas = document.getElementById(canvas);
         this.ctx = this.canvas.getContext('2d');
         this.sprite = new sprite(this.ctx);
-        //this.ctx.scale(1,1);
+        this.ctx.fillStyle = this.sprite.color[3];
+        this.ctx.fillRect(0,0,900,600);  
         this.grid = this.createMatriz(10,18,0);
         this.temGrid = this.createMatriz(10,18,0);
         this.gridGameOver = this.createMatriz(10,18,14);
 
         this.block = "img/block.png";
+
+        this.playerReset();
+        this.update();
+
         this.background();
         this.move();
 
@@ -438,7 +443,7 @@ class tetris{
         this.sprite.renderSprite(544,345,this.sprite.get("macador2"));
         this.sprite.renderSprite(564,365,this.sprite.get("L"));
         this.sprite.renderSprite(609,365,this.sprite.get("I"));
-        this.sprite.renderSprite(644,365,this.sprite.get("NN"));
+        this.sprite.renderSprite(644,365,this.sprite.get("N"));
         this.sprite.renderSprite(684,365,this.sprite.get("E"));
         this.sprite.renderSprite(724,365,this.sprite.get("S"));
         this.sprite.renderSprite(689,405,this.sprite.get("0"));
@@ -562,10 +567,6 @@ class tetris{
 
     animationGameOver(time = 0){
 
-
-
-
-      
 
         const deltaTime =  time - this.lastTimeOver;
 
@@ -692,25 +693,37 @@ class tetris{
         let IntervalAnimation = 1;
 
         const self = this;
-        console.log(lines.length);
+
+     
+
         if(lines.length == 4){
 
-           
             s.play("tetris_4_lines");
+
         }else{
 
             s.play("line_clear");
 
         }
+
+
         
-        game_Manager.lines =  game_Manager.lines +  lines.length;
+       // game_Manager.lines =  game_Manager.lines +  lines.length;
         game_Manager.score += lines.length * 100;
 
-        if(game_Manager.lines % 10 === 0){
+  
+        for(var i = 1; i <= lines.length; i++){
 
-            game_Manager.level++;
+            if(game_Manager.lines % 10 == 0 && game_Manager.lines != 0){
+                console.log("Sube Nivel")
+                game_Manager.level++;
+                s.play("level_up_jingle");
+            }
 
-            s.play("level_up_jingle");
+           
+            game_Manager.lines++;
+            console.log(game_Manager.lines+"<===")
+
         }
 
         const myInterval = setInterval(function(){
@@ -875,9 +888,18 @@ class tetris{
                 }
 
        
+            }else if(!this.statusClear && game_Manager.gameOver){
+
+                if(e.keyCode === 13){
+
+                   var score = new setScoreScene("game");
+                   
+
+                }
+
             }
 
-
+            console.log(this.statusClear+"<======================="+game_Manager.gameOver);
         
         });
 
@@ -1087,20 +1109,20 @@ class tetris{
 
 
 
-       this.ctx.fillStyle = "#fff";
+       this.ctx.fillStyle = this.sprite.color[3];
        this.ctx.fillRect(524,119,250,43);  
        this.sprite.renderNumber(game_Manager.score,724,125);
 
-       this.ctx.fillStyle = "#fff";
+       this.ctx.fillStyle = this.sprite.color[3];
        this.ctx.fillRect(554,285,195,30);
        this.sprite.renderNumber(game_Manager.level,684,285); 
        
        
-       this.ctx.fillStyle = "#fff";
+       this.ctx.fillStyle = this.sprite.color[3];
        this.ctx.fillRect(559,405,195,35);
        this.sprite.renderNumber(game_Manager.lines,689,405);  
 
-       //this.sprite.renderNumber(121356,724,125);
+
 
 
 
@@ -1110,8 +1132,19 @@ class tetris{
 
     renderGameOver(){
 
-        this.sprite.renderSprite(144,394,this.sprite.get("I"));
-        this.sprite.renderSprite(174,394,this.sprite.get("G"));
+        this.sprite.renderSprite(119,380,this.sprite.get("I"));
+        this.sprite.renderSprite(159,380,this.sprite.get("G"));
+
+        this.sprite.renderSprite(124,425,this.sprite.get("V"));
+        this.sprite.renderSprite(164,425,this.sprite.get("I"));
+        this.sprite.renderSprite(204,425,this.sprite.get("T"));
+        this.sprite.renderSprite(244,425,this.sprite.get("O"));
+        this.sprite.renderSprite(284,425,this.sprite.get("X"));
+        this.sprite.renderSprite(324,425,this.sprite.get("M"));
+        this.sprite.renderSprite(364,425,this.sprite.get("H"));
+
+
+
 
 
         this.sprite.renderSprite(129,90,this.sprite.get("sign_game_over"));
@@ -1146,7 +1179,7 @@ class tetris{
         this.sprite.renderSprite(244,645,this.sprite.get("G"));
         this.sprite.renderSprite(284,645,this.sprite.get("A"));
         this.sprite.renderSprite(329,645,this.sprite.get("I"));
-        this.sprite.renderSprite(364,645,this.sprite.get("NN"));
+        this.sprite.renderSprite(364,645,this.sprite.get("N"));
 
         this.sprite.renderSprite(404,645,this.sprite.get("❤"));
 
