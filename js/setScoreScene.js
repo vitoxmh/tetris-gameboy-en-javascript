@@ -7,7 +7,14 @@ class setScoreScene extends scoreScene{
     countLetter = 0;
     posLetter = 0;
     name = [];
+    positionNull = null;
     setLetter = "";
+    endWriteScore = false;
+    postLetter = [
+        {x: 168,y: 526},
+        {x: 168,y: 566},
+        {x: 168,y: 606}
+    ];
 
     letter = [  "A",
                 "B",
@@ -40,11 +47,48 @@ class setScoreScene extends scoreScene{
  
         super(ctx);
 
+        //m.play("HighScores");
 
 
-        console.log("ffddffd")
         this.setType();
         this.changeLetter();
+       
+       
+
+        game_Manager.topScore.push({score:game_Manager.score,name:null});
+
+        game_Manager.topScore.sort(function (a, b) {
+	
+            if (a.score > b.score) {
+                
+              return -1;
+              
+            }
+            
+            if (a.score < b.score) {
+              return 1;
+            }
+
+            return 0;
+          });
+
+
+          
+          game_Manager.topScore.map((value,key) => {
+
+            if(value.name == null){
+
+                this.positionNull = key;
+                console.log(value)
+         
+
+            }
+
+          });
+
+
+
+        this.renderScore();
         this.update();
     
     }
@@ -79,39 +123,50 @@ class setScoreScene extends scoreScene{
 
 
 
-    rederScore(){
+    renderScore(){
 
-        game_Manager.score;
+       
 
-        const firstPlace      = game_Manager.topScore.first;
-        const secondPlace     = game_Manager.topScore.second;
-        const thirdPlace      = game_Manager.topScore.third;
-
-
-        this.sprite.rederScore(firstPlace.score,firstPlace.name,{x:168,y:526},{x:700,y:535}); 
-        this.sprite.rederScore(secondPlace.score,secondPlace.name,{x:168,y:566},{x:700,y:566});
-        this.sprite.rederScore(thirdPlace.score,thirdPlace.name,{x:168,y:606},{x:700,y:606});
+        const firstPlace      = game_Manager.topScore[0];
+        const secondPlace     = game_Manager.topScore[1];
+        const thirdPlace      = game_Manager.topScore[2];
 
 
+
+            this.sprite.rederScore(firstPlace.score,firstPlace.name,{x:168,y:526},{x:700,y:535}); 
+            this.sprite.rederScore(secondPlace.score,secondPlace.name,{x:168,y:566},{x:700,y:566});
+            this.sprite.rederScore(thirdPlace.score,thirdPlace.name,{x:168,y:606},{x:700,y:606});
+          
+        
+        
+        
+    
     }
 
 
 
     writeScore(){
 
-       
-        if(this.count % 2 == 0){
+        
+         
+        if(this.positionNull != null){
 
-            this.sprite.renderSpriteColor(168,526,this.sprite.get(this.letter[this.countLetter].toString()),1);
+            var dx =  this.postLetter[this.positionNull].x + (40*this.posLetter);
+            var dy =  this.postLetter[this.positionNull].y;
+
+
+            if(this.count % 2 == 0){
+
+                this.sprite.renderSpriteColor(dx,dy,this.sprite.get(this.letter[this.countLetter].toString()),1);
+                
+
+            }else{
+
+                this.ctx.fillStyle = this.sprite.color[3];
+                this.ctx.fillRect(dx,dy,40,40);  
             
-
-        }else{
-
-            //this.sprite.renderSpriteColor(168,526,this.sprite.get(this.letter[this.countLetter].toString()),3);
-            this.ctx.fillStyle = this.sprite.color[3];
-            this.ctx.fillRect(168,526,40,40);  
-           
-
+            }
+        
         }
 
 
@@ -127,11 +182,14 @@ class setScoreScene extends scoreScene{
         this.dropCounter += deltaTime; 
  
       
-        if(this.dropCounter > 200 ){
+        if(this.dropCounter > 300 ){
          
-            this.dropCounter=0;
-          
-            this.writeScore();
+        
+            if(!this.endWriteScore){
+                this.writeScore();
+            }
+            
+            this.dropCounter = 0;
             this.count++;
             
         }
@@ -183,19 +241,77 @@ class setScoreScene extends scoreScene{
 
             }else if(e.keyCode === 65){
 
-                
-                this.name[this.posLetter] = this.letter[this.countLetter];
-                this.posLetter++;
 
-    
+                if(this.posLetter < 4){
+
+                    this.name[this.posLetter] = this.letter[this.countLetter];
+
+                    var dx =  this.postLetter[this.positionNull].x + (40*this.posLetter);
+                    var dy =  this.postLetter[this.positionNull].y;
+                    this.sprite.renderSpriteColor(dx,dy,this.sprite.get(this.letter[this.countLetter].toString()),1);
+
+                    this.countLetter = 0;
+                    this.posLetter++;
+
+
+                }else{
+
+
+                    this.name[this.posLetter] = this.letter[this.countLetter];
+
+                    var dx =  this.postLetter[this.positionNull].x + (40*this.posLetter);
+                    var dy =  this.postLetter[this.positionNull].y;
+                    this.sprite.renderSpriteColor(dx,dy,this.sprite.get(this.letter[this.countLetter].toString()),1);
+                    this.endWriteScore = true;
+
+                }
+                
+
+              
+                
+            }else if(e.keyCode === 13){
+
+
+       
+
+              this.postScore();
+
+
+
             }
 
 
         });
 
 
+    }
 
 
+
+    postScore(){
+
+        var name = "";
+
+        this.name.map((a,b) =>{
+
+            name += a;
+
+        });
+
+        var data = {name:name, score: game_Manager.score};
+
+
+        fetch('http://localhost/tetris/api/',{
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(commits => { 
+      
+        
+        });
+
+       
     }
 
 

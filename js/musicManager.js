@@ -49,6 +49,11 @@ class musicManager{
                 this.audio = new Audio(this.path+"Game_Over.ogg");
 
             break;
+            case "HighScores":
+
+                this.audio = new Audio(this.path+"High_Scores.ogg");
+                
+            break;
 
         }
         this.audio.loop = true;

@@ -1,7 +1,7 @@
 class gameManager{
 
     gameOver = false;
-    score = 99999;
+    score = 1530;
     level = 0;
     lines = 0;
     music = 1;
@@ -10,29 +10,33 @@ class gameManager{
     mode = 0;
 
     
-    topScore = {
-        first:{
-            score: 1000,
-            name: "YO"
-        },
-        second:{
-            score: 500,
-            name: "TU"
-        },
-        third:{
-            score: 100,
-            name: "EL" 
-        }
-    }
-    
+
+    topScore = [
+        {score: null,name: null},
+        {score: null,name: null},
+        {score: null,name: null}
+    ];
 
     constructor(){
 
+
+        fetch('http://localhost/tetris/api/',{
+            method: 'GET', // or 'PUT'
+            headers:{
+              'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(commits => { 
+            this.topScore =  commits
+            console.log(this.topScore);
+            var score = new setScoreScene("game");
+        
+        });
+
+         
 
     }
 
 
 }
-
-
-var game_Manager = new gameManager();

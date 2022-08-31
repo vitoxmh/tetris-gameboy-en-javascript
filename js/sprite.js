@@ -1375,14 +1375,19 @@ rederScore(score,name,posName,postScore){
 
     if(score != null){
 
-        for(var i = 0; i < name.toString().length; i++){
+        if(name != null){
+        
+            for(var i = 0; i < name.toString().length; i++){
 
-            var dx = ((41*i)+posName.x);
-            this.ctx.fillStyle ="red";
-            this.ctx.fillRect((dx),posName.y+10,41,10);
-            this.renderSprite(dx,posName.y,this.get(name[i]));
- 
+                var dx = ((41*i)+posName.x);
+                this.ctx.fillStyle ="red";
+                this.ctx.fillRect((dx),posName.y+10,41,10);
+                this.renderSprite(dx,posName.y,this.get(name[i]));
+    
+            }
+            
         }
+
 
         const firstPlaceScore = score.toString();
 
