@@ -23,15 +23,19 @@ class levelScene extends scoreScene{
     constructor(ctx){
  
         super(ctx);
+        this.renderBackground();
         this.modeType();
         this.selectLevel();
         this.move();
         this.update();
         this.setScore();
         var _self = this;
+       
 
 
     }
+
+
 
 
 
@@ -95,30 +99,29 @@ class levelScene extends scoreScene{
     updateSelector(){
 
         if(game_Manager.scene == 3){
+
             var i = game_Manager.level;
 
             if(this.count % 2 == 0){
                 
-                this.sprite.renderSpriteColor(this.posLevel[i][0],this.posLevel[i][1],this.sprite.get(""+i+""),1);
+                this.sprite.renderSpriteColor(game_Manager.posLevel[i][0],game_Manager.posLevel[i][1],this.sprite.get(""+i+""),1);
 
             }else{
                 
-                this.sprite.renderSpriteColor(this.posLevel[i][0],this.posLevel[i][1],this.sprite.get(""+i+""),4);
+                this.sprite.renderSpriteColor(game_Manager.posLevel[i][0],game_Manager.posLevel[i][1],this.sprite.get(""+i+""),4);
 
             }
         }
-
-
-
 
     }
 
     selectLevel(){
 
         if(game_Manager.scene == 3){
-            for(var i = 0; i < this.posLevel.length; i++){
 
-                this.sprite.renderSpriteColor(this.posLevel[i][0],this.posLevel[i][1],this.sprite.get(""+i+""),(game_Manager.level == i?1:4));
+            for(var i = 0; i < game_Manager.posLevel.length; i++){
+
+                this.sprite.renderSpriteColor(game_Manager.posLevel[i][0],game_Manager.posLevel[i][1],this.sprite.get(""+i+""),(game_Manager.level == i?1:4));
 
             }
         }
@@ -343,7 +346,7 @@ class levelScene extends scoreScene{
 
                     game_Manager.scene = 4;
 
-                    var gametetris = new tetris("game");
+                    game_Manager.tetris = new tetris("game");
                    
     
 
@@ -360,9 +363,9 @@ class levelScene extends scoreScene{
 
     setScore(){
 
-        const firstPlace      = game_Manager.topScore.first;
-        const secondPlace     = game_Manager.topScore.second;
-        const thirdPlace      = game_Manager.topScore.third;
+        const firstPlace      = game_Manager.topScore[0];
+        const secondPlace     = game_Manager.topScore[1];
+        const thirdPlace      = game_Manager.topScore[2];
 
         this.sprite.rederScore(firstPlace.score,firstPlace.name,{x:168,y:526},{x:700,y:535}); 
         this.sprite.rederScore(secondPlace.score,secondPlace.name,{x:168,y:566},{x:700,y:566});

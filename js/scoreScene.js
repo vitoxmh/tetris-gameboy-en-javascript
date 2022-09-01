@@ -11,14 +11,18 @@ class scoreScene{
         this.canvas = document.getElementById(canvas);
         this.ctx = this.canvas.getContext('2d');
         this.sprite = new sprite(this.ctx);
-
-        this.renderBackground();
-
+       
+       
     }
 
 
 
+
     renderBackground(){
+
+        this.ctx.fillStyle = this.sprite.color[3];
+        this.ctx.fillRect(0,0,900,600);  
+
 
         this.ctx.fillStyle = this.sprite.color[0];
         this.ctx.fillRect(8,11,780,700); 

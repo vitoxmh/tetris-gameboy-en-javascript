@@ -12,7 +12,14 @@ class game{
         this.ctx = this.canvas.getContext('2d');
         this.ctx.scale(1,1);
         this.sprite = new sprite(this.ctx);
+      
 
+
+    }
+
+    init(){
+
+        
 
         m.play("intro");
         
@@ -32,11 +39,6 @@ class game{
         this.ctx.fillRect(40,299,720,5);
        
   
-        
-
- 
-
-
         this.sprite.renderSprite(45,564,this.sprite.get("arrow"));
         this.sprite.renderSprite(85,564,this.sprite.get("1"));
         this.sprite.renderSprite(125,564,this.sprite.get("P"));
@@ -125,32 +127,8 @@ class game{
 
         this.move();
 
-
     }
 
-
-
-   
-
-    render(tiled){
-
-
-        tiled.map((obj) => {
-
-            this.ctx.fillStyle = obj.color;
-
-            obj.position.map((rec) => {
-
-                this.ctx.fillRect(rec.x,rec.y,rec.w,rec.h);
-               
-
-            });
-
-
-            
-        });
-
-    }
 
 
 
@@ -164,8 +142,6 @@ class game{
 
 
                     if(e.keyCode === 37){
-                        //this.sprite.clearRender(440,565,this.sprite.get("arrow"));
-                        //this.sprite.renderSprite(45,564,this.sprite.get("arrow"));
 
                         this.sprite.renderSpriteColor(45,564,this.sprite.get("arrow"),1);
                         this.sprite.renderSpriteColor(440,564,this.sprite.get("arrow"),3);
@@ -177,14 +153,13 @@ class game{
                        
                         this.sprite.renderSpriteColor(45,564,this.sprite.get("arrow"),3);
                         this.sprite.renderSpriteColor(440,564,this.sprite.get("arrow"),1);
-                        //this.sprite.clearRender(45,564,this.sprite.get("arrow"));
-                        //this.sprite.renderSprite(440,564,this.sprite.get("arrow"));
+                       
                         s.play("menu_sound");
                        
                     }else if(e.keyCode === 13){
-    
-                            var sceneMode = new modeScene("game");
-                            game_Manager.scene = 2;
+                        m.stop();
+                        game_Manager.sceneMode.init();
+                        game_Manager.scene = 2;
 
     
                     }

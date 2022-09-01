@@ -214,23 +214,42 @@ class tetris{
         this.canvas = document.getElementById(canvas);
         this.ctx = this.canvas.getContext('2d');
         this.sprite = new sprite(this.ctx);
+        this.init();
+
+        
+
+    }
+
+
+
+
+    init(){
+
+      
         this.ctx.fillStyle = this.sprite.color[3];
-        this.ctx.fillRect(0,0,900,600);  
+        this.ctx.fillRect(0,0,1200,1200);
+        m.stop();
+        m.playId(game_Manager.music);
         this.grid = this.createMatriz(10,18,0);
         this.temGrid = this.createMatriz(10,18,0);
         this.gridGameOver = this.createMatriz(10,18,14);
-
+        this.dropCounter=0;
         this.block = "img/block.png";
-
+        game_Manager.gameOver = false;
+        //game_Manager.setTopScoreRes();
         this.playerReset();
         this.update();
 
         this.background();
         this.move();
 
-        
 
     }
+
+
+
+
+
 
     createMatriz(w,h,d){
 
@@ -324,9 +343,7 @@ class tetris{
     drawMatrizNext(matriz,offset){
 
         this.ctx.fillStyle = "#F8F8F8";
-        this.ctx.fillRect(599,520,160,160);
-    
-        
+        this.ctx.fillRect(598,520,162,160);
     
         const pos = {
             x: 0,
@@ -398,6 +415,9 @@ class tetris{
     
 
     background(){
+
+        this.ctx.fillStyle = this.sprite.color[3];
+        this.ctx.fillRect(0,0,1200,1200);
 
         const brick = [0,90,180,270,360,450,540,630];
         brick.map((value,key) => {
@@ -550,7 +570,7 @@ class tetris{
         if(this.collide(this.grid,this.player) && !game_Manager.gameOver){
     
     
-        
+                this.grid.forEach(row => row.fill(0));
                 game_Manager.gameOver = true;
                 m.stop();
                 s.play("game_over");
@@ -617,11 +637,11 @@ class tetris{
            
         }
 
-  
+   
         if(this.clearGameOver == 3){
 
            if(this.posOver.statusPlay == 0){
-            console.log("ddfffffff");
+  
             this.renderGameOver();
             m.loop(false);
             m.play("GameOver"); 
@@ -888,18 +908,20 @@ class tetris{
                 }
 
        
-            }else if(!this.statusClear && game_Manager.gameOver){
+            }else if(!this.statusClear && game_Manager.gameOver && game_Manager.scene == 4){
 
-                if(e.keyCode === 13){
+                if(e.keyCode === 13 && this.clearGameOver == 3){
+  
+                   game_Manager.scene = 5;
+                   game_Manager.setScoreScene.endWriteScore = false;
+                   game_Manager.setScoreScene.init();
 
-                   var score = new setScoreScene("game");
-                   
 
                 }
 
             }
-
-            console.log(this.statusClear+"<======================="+game_Manager.gameOver);
+    
+          
         
         });
 

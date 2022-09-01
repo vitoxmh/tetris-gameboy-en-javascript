@@ -22,9 +22,16 @@ class modeScene{
         this.sprite = new sprite(this.ctx);
         this.configMode = 0;
 
+            
+    }
+
+
+
+    init(){
+
         this.ctx.fillStyle = this.sprite.color[3];
         this.ctx.fillRect(0,0,900,600);  
-        m.stop();
+        m.stop(); 
         m.play("typea");
         this.renderBackground();
        
@@ -32,8 +39,7 @@ class modeScene{
         this.update();
         this.selectMode();
         this.selectMusic();
-        
-      
+
 
     }
 
@@ -45,8 +51,11 @@ class modeScene{
         this.ctx.fillRect(8,11,780,700); 
         this.ctx.fillStyle = this.sprite.color[3];
         this.ctx.fillRect(18,21,760,680);
+      
+
         this.ctx.fillStyle = this.sprite.color[4];
         this.ctx.fillRect(28,31,741,660);
+
 
 
        
@@ -107,6 +116,8 @@ class modeScene{
         this.ctx.fillRect(100,557,300,50);
         this.ctx.fillRect(405,477,295,50);
         this.ctx.fillRect(405,557,295,50);
+        this.ctx.fillRect(20,690,758,10);
+        this.ctx.fillRect(770,30,8,661);
 
 
 
@@ -459,7 +470,9 @@ class modeScene{
 
                 game_Manager.scene = 3;
 
-                var levelSel = new levelScene("game");
+                game_Manager.levelSel = new levelScene("game");
+
+                
 
             }
 
@@ -506,7 +519,7 @@ class modeScene{
                     game_Manager.music = 4;
                     s.play("menu_sound");
                     m.stop();
-                    m.play("Loginska");
+                    m.play("Karinka");
                 
                 }
 
@@ -527,7 +540,7 @@ class modeScene{
                     game_Manager.music = 4;
                     s.play("menu_sound");
                     m.stop();
-                    m.play("Loginska");
+                    m.play("Karinka");
                 
                 }
 

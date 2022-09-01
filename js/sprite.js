@@ -28,7 +28,7 @@ clearRender(dx,dy,sprites){
         row.forEach((value,x) => {
 
             if(value !== 0){
-                this.ctx.fillStyle = "#fff";
+                this.ctx.fillStyle = this.color[3];
                 this.ctx.fillRect((dx + (x * this.width)),(dy + (y * this.width)),this.width,this.width);  
             }
 
@@ -1380,7 +1380,7 @@ rederScore(score,name,posName,postScore){
             for(var i = 0; i < name.toString().length; i++){
 
                 var dx = ((41*i)+posName.x);
-                this.ctx.fillStyle ="red";
+                this.ctx.fillStyle = this.color[3];
                 this.ctx.fillRect((dx),posName.y+10,41,10);
                 this.renderSprite(dx,posName.y,this.get(name[i]));
     
@@ -1394,10 +1394,10 @@ rederScore(score,name,posName,postScore){
         for(var i = firstPlaceScore.length; i > 0; i--){
 
             var dx = (postScore.x-(33*i));
-            this.ctx.fillStyle ="red";
+            this.ctx.fillStyle = this.color[3];
             this.ctx.fillRect((dx),postScore.y,38,16);
            
- 
+  
         }
 
         this.renderNumber(firstPlaceScore,(postScore.x-20),(posName.y));
