@@ -538,7 +538,7 @@ class tetris{
 
         this.statusRotate = 0;
 
-        this.dropInterval = 1000 - (this.player.level*100);
+        this.dropInterval = 1000 - (game_Manager.level*100);
 
         if(this.player.next == null){
     
@@ -727,8 +727,7 @@ class tetris{
         }
 
 
-        
-       // game_Manager.lines =  game_Manager.lines +  lines.length;
+    
         game_Manager.score += lines.length * 100;
 
   
@@ -742,7 +741,7 @@ class tetris{
 
            
             game_Manager.lines++;
-            console.log(game_Manager.lines+"<===")
+           
 
         }
 

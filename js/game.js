@@ -57,10 +57,10 @@ class game{
 
 
         this.sprite.renderSprite(160,644,this.sprite.get("COPY"));
-        this.sprite.renderSprite(210,649,this.sprite.get("1"));
-        this.sprite.renderSprite(245,649,this.sprite.get("9"));
-        this.sprite.renderSprite(285,649,this.sprite.get("8"));
-        this.sprite.renderSprite(325,649,this.sprite.get("9"));
+        this.sprite.renderSprite(210,649,this.sprite.get("2"));
+        this.sprite.renderSprite(245,649,this.sprite.get("0"));
+        this.sprite.renderSprite(285,649,this.sprite.get("2"));
+        this.sprite.renderSprite(325,649,this.sprite.get("2"));
         this.sprite.renderSprite(400,639,this.sprite.get("NN"));
         this.sprite.renderSprite(440,639,this.sprite.get("i"));
         this.sprite.renderSprite(455,654,this.sprite.get("n"));

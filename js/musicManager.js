@@ -5,7 +5,7 @@ class musicManager{
 
     music = [
         "intro.ogg", // 0
-        "typeA.mp3", // 1
+        "Type_A.ogg", // 1
         "typeB.mp3", // 2
         "typeC.ogg", // 3
         "Karinka.mp3", // 4

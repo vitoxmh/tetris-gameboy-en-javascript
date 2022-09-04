@@ -202,6 +202,7 @@ class setScoreScene extends scoreScene{
            
             this.dropCounter = 0;
             this.count++;
+            console.log(this.countLetter+"<====")
             
         }
 
@@ -218,7 +219,7 @@ class setScoreScene extends scoreScene{
         document.addEventListener("keydown", e => {
 
        
-
+            
             if(e.keyCode === 38 && game_Manager.scene == 5){
 
               
@@ -237,7 +238,7 @@ class setScoreScene extends scoreScene{
               
             }else if(e.keyCode === 40 && game_Manager.scene == 5){
 
-                this.countLetter--;
+
 
 
                 if(this.countLetter < 0){
