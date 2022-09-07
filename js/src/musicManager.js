@@ -105,24 +105,3 @@ class musicManager{
     }
 
 }
-
-
-
-function stringToImg(string){
-
-    let html = "";
-
-    const numero = new String(string);
-
-    for(let i = 0; i < numero.length; i++){
-
-       html += "<img src='img/"+numero[i]+".png'>";
-
-    }
-
-
-    return html;
-
-
-
-}
