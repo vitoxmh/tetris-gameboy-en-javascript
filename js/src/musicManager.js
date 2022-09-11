@@ -3,6 +3,9 @@ class musicManager{
     audio = null;
     path = "music/";
 
+    myMusic = [];
+
+
     music = [
         "intro.ogg", // 0
         "Type_A.ogg", // 1
@@ -13,74 +16,101 @@ class musicManager{
         "typeD.mp3", // 6
         "Game_Over.ogg", // 7
         "High_Scores.ogg" // 8
-
     ];
 
+
+
+    constructor (){
+  
+        this.music.map((value,index) => {
+
+
+            this.myMusic[index] = new Audio(this.path+this.music[index]);
+
+        });
+
+
+    }
+
+
+
     play(theme){
+
+        let indexMusic = 0;
 
         switch(theme){
 
             case "intro":
 
-                this.audio = new Audio(this.path+this.music[0]);
+                indexMusic = 0;
 
             break;
 
             case "typea":
 
-                this.audio = new Audio(this.path+this.music[1]);
+                indexMusic = 1;
 
             break;
             case "typeb":
 
-                this.audio = new Audio(this.path+this.music[2]);
+                indexMusic = 2;
 
             break;
             case "typec":
 
-                this.audio = new Audio(this.path+this.music[3]);
+                indexMusic = 3;
 
             break;
             case "Loginska":
 
-                this.audio = new Audio(this.path+this.music[5]);
+                indexMusic = 5;
 
             break;
 
             case "Karinka":
 
-                this.audio = new Audio(this.path+this.music[4]);
+                indexMusic = 4;
 
             break;
            
 
             case "typed":
 
-                this.audio = new Audio(this.path+this.music[6]);
+                indexMusic = 6;
 
             break;
             case "GameOver":
 
-                this.audio = new Audio(this.path+this.music[7]);
+                indexMusic = 7;
 
             break;
             case "HighScores":
 
-                this.audio = new Audio(this.path+this.music[8]);
+                indexMusic = 8;
                 
             break;
 
         }
-        this.audio.loop = true;
-        
-        this.audio.play();
+
+
+        this.myMusic[indexMusic].loop = true;
+        //this.myMusic[indexMusic].play(); 
 
     }
 
 
     stop(){
 
-        this.audio.pause();
+        this.music.map((value,index) => {
+            this.myMusic[index].currentTime = 0;
+            this.myMusic[index].pause();
+        });
+
+        if(this.audio != null){
+            this.audio.pause();
+        }
+        
+
     }
 
 
@@ -89,9 +119,8 @@ class musicManager{
 
 
         this.stop();
-        this.audio = new Audio(this.path+this.music[id]);
-        this.audio.loop = true;
-        this.audio.play();
+        this.myMusic[id].loop = true;
+        //this.myMusic[id].play();
 
 
     }
@@ -100,7 +129,14 @@ class musicManager{
 
     loop(status){
 
-        this.audio.loop = status;
+        this.music.map((value,index) => {
+            this.myMusic[index].loop = status;
+        });
+
+        if(this.audio != null){
+            this.audio.loop = status;
+        }
+       
 
     }
 

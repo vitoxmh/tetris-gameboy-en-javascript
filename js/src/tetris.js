@@ -5,6 +5,8 @@ class tetris{
     sprite = null;
     grid = null;
     dropCounter = 0;
+    temIndice = null;
+    temIndiceNext = null;
     dropCounterOver = 0;
     dropInterval = 1000;
     lastTime = 0;
@@ -204,6 +206,7 @@ class tetris{
     player = {
         pos: {x: 0,y: 0},
         matriz: null,
+
         next: null,
         lines: 0,
         level: 1
@@ -231,24 +234,31 @@ class tetris{
         m.stop();
         m.playId(game_Manager.music);
         this.grid = this.createMatriz(10,18,0);
+       
         this.temGrid = this.createMatriz(10,18,0);
         this.gridGameOver = this.createMatriz(10,18,14);
         this.dropCounter=0;
         this.block = "img/block.png";
         game_Manager.gameOver = false;
         //game_Manager.setTopScoreRes();
+        this.modeType();
         this.playerReset();
         this.update();
 
         this.background();
         this.move();
+        
+        this.grid[14][5] = 1;
+        this.grid[15][5] = 1;
+        this.grid[16][5] = 1;
+        this.grid[17][5] = 1;
 
+        this.grid[14][2] = 1;
+        this.grid[15][2] = 1;
+        this.grid[16][2] = 1;
+        this.grid[17][2] = 1;
 
     }
-
-
-
-
 
 
     createMatriz(w,h,d){
@@ -269,7 +279,7 @@ class tetris{
 
     update(time = 0){
 
-
+ 
         if(!game_Manager.gameOver){
 
             const deltaTime =  time - this.lastTime;
@@ -280,15 +290,27 @@ class tetris{
             if(this.dropCounter > this.dropInterval ){
         
                 this.playerDrop();
-        
+
+
+               // console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|"+this.grid[this.player.pos.y+2][this.player.pos.x])
+
+                
+            
             }
             
-            
+             
             this.draw();
             this.updateScore();
 
-          
+            
+
+          if(!game_Manager.pause){
+
             requestAnimationFrame(this.update.bind(this));  
+
+          }
+          
+           
 
         }
        
@@ -304,7 +326,6 @@ class tetris{
         if(!this.statusClear){
             
             this.ctx.fillStyle = "#F8F8F8";
-            //ctx.fillStyle = "#000";
             this.ctx.fillRect(79,0,400,719);
             this.drawMatriz(this.grid,{x:0,y:0},0);
             this.drawMatriz(this.player.matriz,this.player.pos,1);
@@ -479,6 +500,7 @@ class tetris{
 
     createPiece(tipo){
 
+
         if(tipo === 'T'){
     
             return [
@@ -506,12 +528,11 @@ class tetris{
         }else if(tipo === 'I'){
             return [
               
-                
-                [0,0,0,0,0],
-                [0,0,0,0,0],
-                [12,11,11,10,0],
-                [0,0,0,0,0],
-                [0,0,0,0,0],
+                [0,0,0,0],
+                [0,0,0,0],
+                [12,11,11,10],
+                [0,0,0,0],
+               
             ];
         }else if(tipo === 'S'){
             return [
@@ -533,37 +554,50 @@ class tetris{
 
 
     playerReset(){
-        const pieces = 'ILJOTSZ';
-        //const pieces = 'IIIIIII';
+        //const pieces = 'ILJOTSZ';
+        const pieces = 'LLLLLLL';
+   
+  
+        this.statusRotate  = 0;
 
-        this.statusRotate = 0;
-
-        this.dropInterval = 1000 - (game_Manager.level*100);
+        this.dropInterval = 1000 - (game_Manager.level*(game_Manager.mode == 0?100:30)); 
 
         if(this.player.next == null){
     
             const indice = pieces[pieces.length * Math.random() | 0];
-
+          
             this.player.matriz = this.createPiece(indice);
-
-           
+            this.temIndice = indice;
+            
     
         }else{
     
             this.player.matriz = this.player.next;
+
+            this.temIndice = this.temIndiceNext;
     
         }
+
 
 
          
         const indice = pieces[pieces.length * Math.random() | 0];
 
         this.player.next =  this.createPiece(indice);
+        this.temIndiceNext = indice;
         
+        if(indice == 4){
+
+            this.player.pos.y = 0;
+        }else{
+            this.player.pos.y = 0;
+            
+        }
+
         this.player.pos.x = (this.grid[0].length / 2 | 0) -(this.player.matriz[0].length / 2 | 0);
       
  
-        this.player.pos.y = 0;
+        
         
         
     
@@ -931,6 +965,7 @@ class tetris{
     playerMove(direccion){
 
         this.player.pos.x += direccion;
+
         if(this.collide(this.grid,this.player)){
             this.player.pos.x -= direccion;
         }
@@ -980,150 +1015,83 @@ class tetris{
     rotate(matriz){
 
 
-        switch(this.statusRotate){
+        if(this.isRotate()){ 
 
-            case 3:
-
-                for(let y = 0; y < matriz.length; ++y){
-    
-                    for(let x = 0; x < matriz[y].length; ++x){
-             
-                         if(matriz[y][x] != 0){
-
-                           if(matriz[y][x] == 12){
-
-                            matriz[y][x] = 5;
-
-                           }else if(matriz[y][x] == 11){
-
-                            matriz[y][x] = 6;
-
-                           }else if(matriz[y][x] == 10){
-
-                            matriz[y][x] = 7;
-
-                           }
-                           
-                         }
-
-                    } 
-             
-                 }
-
-               
-            break;
-            case 0:
-               
-                for(let y = 0; y < matriz.length; ++y){
-    
-                    for(let x = 0; x < matriz[y].length; ++x){
-             
-                         if(matriz[y][x] != 0){
-
-                           if(matriz[y][x] == 5){
-
-                            matriz[y][x] = 10;
-
-                           }else if(matriz[y][x] == 6){
-
-                            matriz[y][x] = 11;
-
-                           }else if(matriz[y][x] == 7){
-
-                            matriz[y][x] = 12;
-
-                           }
-                           
-                         }
-
-                    } 
-             
-                 }
-
-            break;
-            case 1:
-
-                for(let y = 0; y < matriz.length; ++y){
-    
-                    for(let x = 0; x < matriz[y].length; ++x){
-             
-                         if(matriz[y][x] != 0){
-
-                           if(matriz[y][x] == 12){
-
-                            matriz[y][x] = 5;
-
-                           }else if(matriz[y][x] == 11){
-
-                            matriz[y][x] = 6;
-
-                           }else if(matriz[y][x] == 10){
-
-                            matriz[y][x] = 7;
-
-                           }
-                           
-                         }
-
-                    } 
-             
-                 }
+            if(this.temIndice == "I")
+            {
 
 
-            break;
-            case 2:
+                if(this.statusRotate == 1 || this.statusRotate == 3){
 
 
+                    matriz[0][0] = 0;
+                    matriz[0][1] = 5;
+                    matriz[0][2] = 0;
+                    matriz[0][3] = 0;
 
-                for(let y = 0; y < matriz.length; ++y){
-    
-                    for(let x = 0; x < matriz[y].length; ++x){
-             
-                         if(matriz[y][x] != 0){
+                    matriz[1][0] = 0;
+                    matriz[1][1] = 6;
+                    matriz[1][2] = 0;
+                    matriz[1][3] = 0;
 
-                           if(matriz[y][x] == 7){
+                    matriz[2][0] = 0;
+                    matriz[2][1] = 6;
+                    matriz[2][2] = 0;
+                    matriz[2][3] = 0;
 
-                            matriz[y][x] = 12;
-
-                           }else if(matriz[y][x] == 6){
-
-                            matriz[y][x] = 11;
-
-                           }else if(matriz[y][x] == 5){
-
-                            matriz[y][x] = 10;
-
-                           }
-                           
-                         }
-
-                    } 
-             
-                 }
-
-
-            break;
-
-        }
-
-      
-
-        for(let y = 0; y < matriz.length; ++y){
-            for(let x = 0; x < y; ++x){
+                    matriz[3][0] = 0;
+                    matriz[3][1] = 7;
+                    matriz[3][2] = 0;
+                    matriz[3][3] = 0;
                 
+                
+                }else{
 
-                [matriz[x][y], matriz[y][x]] = [ matriz[y][x],matriz[x][y]];
-    
+
+                    matriz[0][0] = 0;
+                    matriz[0][1] = 0;
+                    matriz[0][2] = 0;
+                    matriz[0][3] = 0;
+
+                    matriz[1][0] = 0;
+                    matriz[1][1] = 0;
+                    matriz[1][2] = 0;
+                    matriz[1][3] = 0;
+
+                    matriz[2][0] = 12;
+                    matriz[2][1] = 11;
+                    matriz[2][2] = 11;
+                    matriz[2][3] = 10;
+
+                    matriz[3][0] = 0;
+                    matriz[3][1] = 0;
+                    matriz[3][2] = 0;
+                    matriz[3][3] = 0;
+
+                }
+
+
+
+
+            }else{
+            
+                for(let y = 0; y < matriz.length; ++y){
+                    for(let x = 0; x < y; ++x){
+                        
+
+                        [matriz[x][y], matriz[y][x]] = [ matriz[y][x],matriz[x][y]];
+            
+                    }
+                }
+
+                matriz.forEach(row => row.reverse());
             }
         }
-        
-        
-        
-        matriz.forEach(row => row.reverse());
-
-        //console.table(matriz);
     
     }
+
+
+
 
 
     updateScore(){
@@ -1205,6 +1173,81 @@ class tetris{
         this.sprite.renderSprite(404,645,this.sprite.get("❤"));
 
        
+    }
+
+
+    isRotate(){
+
+
+       
+        if((this.temIndice == "I" && this.player.pos.x > 7) || (this.temIndice == "I" && this.player.pos.x == -1)){
+
+            return false;
+
+        }
+
+
+       if(this.temIndice == "I"){
+ 
+                if(this.grid[this.player.pos.y+3][this.player.pos.x] > 0){
+                  
+                    return false;
+
+                }else if(this.grid[this.player.pos.y+3][this.player.pos.x+2] > 0){ 
+                    return false;
+
+                }
+        
+       }
+
+
+
+       if(this.temIndice == "L"){
+
+
+
+
+
+       }
+
+       
+
+        return true;
+        
+
+    }
+
+
+    modeType(){
+
+
+        if(game_Manager.mode == 1){
+
+
+            
+            for(var y = 17; y >  ((this.grid.length-1)-game_Manager.level); y--){
+
+                for(var x = 0; x < 10; x++){
+
+                    this.grid[y][x] = (this. getRandomInt(2) == 0?0:this. getRandomInt(14));
+
+                }
+
+           }
+            
+
+            
+
+
+        }
+
+
+    }
+
+
+
+    getRandomInt(max) {
+        return Math.floor(Math.random() * max);
     }
 
 

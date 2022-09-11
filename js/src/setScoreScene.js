@@ -158,6 +158,8 @@ class setScoreScene extends scoreScene{
 
             if(this.count % 2 == 0){
 
+                this.countLetter = (this.countLetter == -1?this.letter.length-1:this.countLetter);
+
                 this.sprite.renderSpriteColor(dx,dy,this.sprite.get(this.letter[this.countLetter].toString()),1);
                 
 
@@ -202,7 +204,7 @@ class setScoreScene extends scoreScene{
            
             this.dropCounter = 0;
             this.count++;
-            console.log(this.countLetter+"<====")
+
             
         }
 
@@ -218,7 +220,7 @@ class setScoreScene extends scoreScene{
 
         document.addEventListener("keydown", e => {
 
-       
+   
             
             if(e.keyCode === 38 && game_Manager.scene == 5){
 
@@ -234,17 +236,18 @@ class setScoreScene extends scoreScene{
                     this.countLetter = 0;
 
                 }
+                this.writeScore();
                 s.play("menu_sound");
               
             }else if(e.keyCode === 40 && game_Manager.scene == 5){
 
 
 
-
-                if(this.countLetter < 0){
+                if(this.countLetter == -1 || this.countLetter < 0 ){
 
                   
                     this.countLetter = this.letter.length-1;
+                    
 
                 }else{
 
@@ -252,6 +255,7 @@ class setScoreScene extends scoreScene{
 
                 }
 
+                this.writeScore();
                 s.play("menu_sound");
 
             }else if(e.keyCode === 65 && !this.endWriteScore && game_Manager.scene == 5){
@@ -303,27 +307,19 @@ class setScoreScene extends scoreScene{
                 }
               
 
-                
-
-
-
+            
             }else if(game_Manager.scene == 5 && this.endWriteScore && e.keyCode === 13){
-                console.log(this.nextStep+"<===")
-               game_Manager.scene = 4;
+
+                game_Manager.scene = 4;
                 game_Manager.score = 0;
                 game_Manager.tetris.background();
                 game_Manager.tetris.playerReset();
                 game_Manager.tetris.clearGameOver = 0;
-
                 game_Manager.tetris.clearGameOver = 0;
                 game_Manager.tetris.posOver.statusPlay = 0;
                 game_Manager.tetris.posOver.y = 18;
                 game_Manager.gameOver = false;
-               
                 game_Manager.tetris.update();
-
-
-    
 
             }
 

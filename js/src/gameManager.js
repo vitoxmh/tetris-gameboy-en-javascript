@@ -2,7 +2,7 @@ class gameManager{
 
     gameOver = false;
     score = 0;   // Score General
-    level = 0;      // Nivel
+    level = 0;      // Nivel 
     lines = 0;      // Numero de Lineas
     music = 1;      // Musica actual
     pause = false;  // Pause
@@ -43,14 +43,10 @@ class gameManager{
         this.setTopScoreRes();
         this.game.init();
         
-       
-
     }
 
 
     setTopScoreRes(){
-
-
         fetch('http://localhost/tetris/api/?level='+this.level+'&mode='+this.mode,{
             method: 'GET', // or 'PUT'
             headers:{
