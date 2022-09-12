@@ -248,15 +248,15 @@ class tetris{
         this.background();
         this.move();
         
-        this.grid[14][5] = 1;
-        this.grid[15][5] = 1;
-        this.grid[16][5] = 1;
-        this.grid[17][5] = 1;
+        /*this.grid[14][5] = 2;
+        this.grid[15][5] = 2;
+        this.grid[16][5] = 2;
+        this.grid[17][5] = 2;
 
-        this.grid[14][2] = 1;
-        this.grid[15][2] = 1;
-        this.grid[16][2] = 1;
-        this.grid[17][2] = 1;
+        this.grid[14][2] = 6;
+        this.grid[15][2] = 6;
+        this.grid[16][2] = 6;
+        this.grid[17][2] = 6;*/
 
     }
 
@@ -292,7 +292,7 @@ class tetris{
                 this.playerDrop();
 
 
-               // console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|"+this.grid[this.player.pos.y+2][this.player.pos.x])
+               console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|"+this.grid[this.player.pos.y+2][this.player.pos.x]+"|"+this.statusRotate+"|"+this.grid[this.player.pos.y+2][this.player.pos.x+3])
 
                 
             
@@ -554,8 +554,8 @@ class tetris{
 
 
     playerReset(){
-        //const pieces = 'ILJOTSZ';
-        const pieces = 'LLLLLLL';
+        const pieces = 'ILJOTSZ';
+        //const pieces = 'JJJJJJJ';
    
   
         this.statusRotate  = 0;
@@ -1015,6 +1015,8 @@ class tetris{
     rotate(matriz){
 
 
+        console.log(this.isRotate()+"<====")
+
         if(this.isRotate()){ 
 
             if(this.temIndice == "I")
@@ -1202,11 +1204,25 @@ class tetris{
 
 
 
-       if(this.temIndice == "L"){
+       if(this.temIndice == "L" || this.temIndice == "J"){
+
+               
+                    if(this.grid[this.player.pos.y+2][this.player.pos.x] != 0 && this.grid[this.player.pos.y+2][this.player.pos.x+3] != 0){
+                     
+                        return false;
+
+                    }
 
 
+                    if(this.player.pos.x == -1 && this.statusRotate == 1){
 
+                        return false;
 
+                    }else if(this.player.pos.x == 0 && this.statusRotate == 3){
+                        return false;
+
+                    }
+                
 
        }
 

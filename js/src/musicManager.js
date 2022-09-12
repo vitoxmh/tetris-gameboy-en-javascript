@@ -94,7 +94,7 @@ class musicManager{
 
 
         this.myMusic[indexMusic].loop = true;
-        //this.myMusic[indexMusic].play(); 
+        this.myMusic[indexMusic].play(); 
 
     }
 
@@ -120,7 +120,7 @@ class musicManager{
 
         this.stop();
         this.myMusic[id].loop = true;
-        //this.myMusic[id].play();
+        this.myMusic[id].play();
 
 
     }
