@@ -210,7 +210,7 @@ class tetris{
         next: null,
         lines: 0,
         level: 1
-    }
+    } 
 
     constructor(canvas){
 
@@ -241,6 +241,7 @@ class tetris{
         this.block = "img/block.png";
         game_Manager.gameOver = false;
         //game_Manager.setTopScoreRes();
+        
         this.modeType();
         this.playerReset();
         this.update();
@@ -248,15 +249,7 @@ class tetris{
         this.background();
         this.move();
         
-        /*this.grid[14][5] = 2;
-        this.grid[15][5] = 2;
-        this.grid[16][5] = 2;
-        this.grid[17][5] = 2;
-
-        this.grid[14][2] = 6;
-        this.grid[15][2] = 6;
-        this.grid[16][2] = 6;
-        this.grid[17][2] = 6;*/
+ 
 
     }
 
@@ -290,9 +283,10 @@ class tetris{
             if(this.dropCounter > this.dropInterval ){
         
                 this.playerDrop();
-
-
-               console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|"+this.grid[this.player.pos.y+2][this.player.pos.x]+"|"+this.statusRotate+"|"+this.grid[this.player.pos.y+2][this.player.pos.x+3])
+  
+  
+ 
+              console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|X-:"+this.grid[this.player.pos.y+2][this.player.pos.x+3]+"|Rotacion:"+this.statusRotate+"|X+:"+this.grid[this.player.pos.y+2][this.player.pos.x-1])
 
                 
             
@@ -380,7 +374,7 @@ class tetris{
                     if(value == 9){
                         
                         offset.x = 15.5;
-                        offset.y = 14;
+                        offset.y = 13;
                        
     
                     }else if(value == 4){
@@ -410,7 +404,7 @@ class tetris{
                     else if(value == 8){
     
                         offset.x = 15.5;
-                        offset.y = 14;
+                        offset.y = 13;
                        
     
                     }else if(value == 10 || value == 11 || value == 12){
@@ -420,7 +414,8 @@ class tetris{
                        
                     }
 
-                   // console.log(value+"====")
+
+                    
     
                 
                     this.sprite.renderPiece(this.colors[value],(40*x) + (offset.x*40),(40*y) + (offset.y*40) );
@@ -498,7 +493,7 @@ class tetris{
 
 
 
-    createPiece(tipo){
+    createPiece2(tipo){
 
 
         if(tipo === 'T'){
@@ -546,16 +541,209 @@ class tetris{
                 [0,9,9],
                 [0,0,0]
             ];
+        }else if(tipo === 'M'){
+
+            return [
+                [   [0,0,0],
+                    [9,9,0],
+                    [0,9,9]
+                ],
+                [   [0,0,9],
+                    [0,9,9],
+                    [0,9,0]
+                ],
+                [   [0,0,0],
+                    [9,9,0],
+                    [0,9,9]
+                ],
+                [   [0,0,9],
+                    [0,9,9],
+                    [0,9,0]
+                ],
+
+            ];
+
+        }
+    
+    
+    }
+
+    createPiece(tipo){
+
+
+        if(tipo === 'T'){
+    
+            return [
+               [
+                [0,1,0],
+                [1,1,1],
+                [0,0,0]
+               ],
+               [
+                [0,1,0],
+                [0,1,1],
+                [0,1,0]
+               ],
+               [
+                [0,0,0],
+                [1,1,1],
+                [0,1,0]
+               ],
+               [
+                [0,1,0],
+                [1,1,0],
+                [0,1,0]
+               ]
+            ];
+        }else if(tipo === 'O'){
+            return [
+                [
+                    [2,2],
+                    [2,2]
+                ],
+                [
+                    [2,2],
+                    [2,2]
+                ],
+                [
+                    [2,2],
+                    [2,2]
+                ],
+                [
+                    [2,2],
+                    [2,2]
+                ]
+            ];
+        }else if(tipo === 'L'){
+            return [
+                [
+                    [0,0,3],
+                    [3,3,3],
+                    [0,0,0]
+                ],
+                [
+                    [0,3,0],
+                    [0,3,0],
+                    [0,3,3]
+                ],
+                [
+                    [0,0,0],
+                    [3,3,3],
+                    [3,0,0]
+                ],
+                [
+                    [3,3,0],
+                    [0,3,0],
+                    [0,3,0]
+                ]
+            ];
+        }else if(tipo === 'J'){
+            return [
+                [
+                    [4,0,0],
+                    [4,4,4],
+                    [0,0,0]
+                ],
+                [
+                    [0,4,4],
+                    [0,4,0],
+                    [0,4,0]
+                ],
+                [
+                    [0,0,0],
+                    [4,4,4],
+                    [0,0,4]
+                ],
+                [
+                    [0,4,0],
+                    [0,4,0],
+                    [4,4,0]
+                ]
+            ];
+        }else if(tipo === 'I'){
+            return [
+              
+                [
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [12,11,11,10],
+                    [0,0,0,0]
+                ],
+                [
+                    [0,5,0,0],
+                    [0,6,0,0],
+                    [0,6,0,0],
+                    [0,7,0,0]
+                ],
+                [
+                    [0,0,0,0],
+                    [0,0,0,0],
+                    [12,11,11,10],
+                    [0,0,0,0]
+                ],
+                [
+                    [0,5,0,0],
+                    [0,6,0,0],
+                    [0,6,0,0],
+                    [0,7,0,0]
+                ]
+
+               
+            ];
+        }else if(tipo === 'S'){
+            return [
+                [
+                    [0,0,0],
+                    [0,8,8],
+                    [8,8,0]
+                ],
+                [
+                    [0,8,0],
+                    [0,8,8],
+                    [0,0,8]
+                ],
+                [
+                    [0,0,0],
+                    [0,8,8],
+                    [8,8,0]
+                ],
+                [
+                    [0,8,0],
+                    [0,8,8],
+                    [0,0,8]
+                ],
+            ];
+        }else if(tipo === 'Z'){
+
+            return [
+                [   [0,0,0],
+                    [9,9,0],
+                    [0,9,9]
+                ],
+                [   [0,9,0],
+                    [9,9,0],
+                    [9,0,0]
+                ],
+                [   [0,0,0],
+                    [9,9,0],
+                    [0,9,9]
+                ],
+                [   [0,9,0],
+                    [9,9,0],
+                    [9,0,0]
+                ],
+
+            ];
+
         }
     
     
     }
 
 
-
     playerReset(){
         const pieces = 'ILJOTSZ';
-        //const pieces = 'JJJJJJJ';
+        //const pieces = 'Z';
    
   
         this.statusRotate  = 0;
@@ -566,7 +754,7 @@ class tetris{
     
             const indice = pieces[pieces.length * Math.random() | 0];
           
-            this.player.matriz = this.createPiece(indice);
+            this.player.matriz = this.createPiece(indice)[0];
             this.temIndice = indice;
             
     
@@ -581,18 +769,29 @@ class tetris{
 
 
          
+        
+
+
         const indice = pieces[pieces.length * Math.random() | 0];
 
-        this.player.next =  this.createPiece(indice);
+        this.player.next =  this.createPiece(indice)[0];
         this.temIndiceNext = indice;
-        
-        if(indice == 4){
+
+
+        if( this.temIndice == "I"){
+
+            this.player.pos.y = -1;
+
+        }else if(this.temIndice == "S" || this.temIndice == "Z"){
+
+            this.player.pos.y = -1;
+
+        }else{
 
             this.player.pos.y = 0;
-        }else{
-            this.player.pos.y = 0;
-            
         }
+        
+        
 
         this.player.pos.x = (this.grid[0].length / 2 | 0) -(this.player.matriz[0].length / 2 | 0);
       
@@ -768,7 +967,6 @@ class tetris{
         for(var i = 1; i <= lines.length; i++){
 
             if(game_Manager.lines % 10 == 0 && game_Manager.lines != 0){
-                console.log("Sube Nivel")
                 game_Manager.level++;
                 s.play("level_up_jingle");
             }
@@ -936,7 +1134,7 @@ class tetris{
                     this.playerMove(1);
                     s.play("move_piece");
                 }else if(e.keyCode === 38){
-                    s.play("rotate");
+                   
                     this.playerRotate();
                 }
 
@@ -978,7 +1176,9 @@ class tetris{
         const pos = this.player.pos.x;
         let offset = 1;
         
-        if(this.statusRotate < 3){
+        if(this.isRotate()){
+            s.play("rotate");
+        if(this.statusRotate < 3){ 
 
             this.statusRotate++;
             
@@ -989,9 +1189,12 @@ class tetris{
         }
 
 
+        if(!this.collide(this.grid,this.player)){
 
-        this.rotate(this.player.matriz);
+            this.rotate(this.player.matriz);
 
+        }
+       
 
         while(this.collide(this.grid,this.player)){
     
@@ -1007,89 +1210,35 @@ class tetris{
             }
     
         }
+    }
     
     
     }
 
 
+
+
     rotate(matriz){
-
-
-        console.log(this.isRotate()+"<====")
 
         if(this.isRotate()){ 
 
-            if(this.temIndice == "I")
-            {
 
+        const temmatriz = this.createPiece(this.temIndice)[this.statusRotate];
+      
 
-                if(this.statusRotate == 1 || this.statusRotate == 3){
-
-
-                    matriz[0][0] = 0;
-                    matriz[0][1] = 5;
-                    matriz[0][2] = 0;
-                    matriz[0][3] = 0;
-
-                    matriz[1][0] = 0;
-                    matriz[1][1] = 6;
-                    matriz[1][2] = 0;
-                    matriz[1][3] = 0;
-
-                    matriz[2][0] = 0;
-                    matriz[2][1] = 6;
-                    matriz[2][2] = 0;
-                    matriz[2][3] = 0;
-
-                    matriz[3][0] = 0;
-                    matriz[3][1] = 7;
-                    matriz[3][2] = 0;
-                    matriz[3][3] = 0;
+        for(let y = 0; y < matriz.length; ++y){
+            for(let x = 0; x < matriz[y].length; ++x){
                 
-                
-                }else{
-
-
-                    matriz[0][0] = 0;
-                    matriz[0][1] = 0;
-                    matriz[0][2] = 0;
-                    matriz[0][3] = 0;
-
-                    matriz[1][0] = 0;
-                    matriz[1][1] = 0;
-                    matriz[1][2] = 0;
-                    matriz[1][3] = 0;
-
-                    matriz[2][0] = 12;
-                    matriz[2][1] = 11;
-                    matriz[2][2] = 11;
-                    matriz[2][3] = 10;
-
-                    matriz[3][0] = 0;
-                    matriz[3][1] = 0;
-                    matriz[3][2] = 0;
-                    matriz[3][3] = 0;
-
-                }
-
-
-
-
-            }else{
-            
-                for(let y = 0; y < matriz.length; ++y){
-                    for(let x = 0; x < y; ++x){
-                        
-
-                        [matriz[x][y], matriz[y][x]] = [ matriz[y][x],matriz[x][y]];
-            
-                    }
-                }
-
-                matriz.forEach(row => row.reverse());
+                matriz[y][x] = temmatriz[y][x];
+      
+    
             }
         }
-    
+        
+        }
+
+  
+
     }
 
 
@@ -1108,15 +1257,9 @@ class tetris{
        this.ctx.fillRect(554,285,195,30);
        this.sprite.renderNumber(game_Manager.level,684,285); 
        
-       
        this.ctx.fillStyle = this.sprite.color[3];
        this.ctx.fillRect(559,405,195,35);
        this.sprite.renderNumber(game_Manager.lines,689,405);  
-
-
-
-
-
 
     }
 
@@ -1133,10 +1276,6 @@ class tetris{
         this.sprite.renderSprite(284,425,this.sprite.get("X"));
         this.sprite.renderSprite(324,425,this.sprite.get("M"));
         this.sprite.renderSprite(364,425,this.sprite.get("H"));
-
-
-
-
 
         this.sprite.renderSprite(129,90,this.sprite.get("sign_game_over"));
         this.sprite.renderSprite(204,165,this.sprite.get("G"));
@@ -1190,16 +1329,12 @@ class tetris{
 
 
        if(this.temIndice == "I"){
- 
-                if(this.grid[this.player.pos.y+3][this.player.pos.x] > 0){
+
+                if(this.grid[this.player.pos.y+3][this.player.pos.x] != 0 && this.grid[this.player.pos.y+3][this.player.pos.x+2] != 0){
                   
                     return false;
 
-                }else if(this.grid[this.player.pos.y+3][this.player.pos.x+2] > 0){ 
-                    return false;
-
                 }
-        
        }
 
 
@@ -1207,27 +1342,75 @@ class tetris{
        if(this.temIndice == "L" || this.temIndice == "J"){
 
                
-                    if(this.grid[this.player.pos.y+2][this.player.pos.x] != 0 && this.grid[this.player.pos.y+2][this.player.pos.x+3] != 0){
+            if(this.grid[this.player.pos.y+1][this.player.pos.x] != 0 && this.grid[this.player.pos.y+1][this.player.pos.x+3] != 0){
                      
-                        return false;
+                return false;
 
-                    }
+            }
 
 
-                    if(this.player.pos.x == -1 && this.statusRotate == 1){
+            if(this.player.pos.x == -1 && this.statusRotate == 1){
 
-                        return false;
+                return false;
 
-                    }else if(this.player.pos.x == 0 && this.statusRotate == 3){
-                        return false;
+            }else if(this.player.pos.x == 0 && this.statusRotate == 3){
+                
+                return false;
 
-                    }
+            }
+
+ 
+
+            if(this.grid[this.player.pos.y+1][this.player.pos.x-1] != 0 && this.grid[this.player.pos.y+1][this.player.pos.x+2] != 0){
+
+                return false;
+
+            }
                 
 
        }
 
-       
+       if(this.temIndice == "S"){
 
+           
+ 
+            if(this.grid[this.player.pos.y+2][this.player.pos.x] != 0 && this.grid[this.player.pos.y+2][this.player.pos.x+3] != 0 ){
+
+               
+
+        
+                    return false;
+                
+                   
+                    
+
+            }
+
+
+        }
+
+
+
+
+        if(this.temIndice == "Z"){
+
+           
+ 
+            if(this.grid[this.player.pos.y+2][this.player.pos.x-1] != 0 && this.grid[this.player.pos.y+2][this.player.pos.x+3] != 0 ){
+
+               
+
+        
+                    return false;
+                
+                   
+                    
+
+            }
+
+        }
+
+       
         return true;
         
 
@@ -1240,20 +1423,16 @@ class tetris{
         if(game_Manager.mode == 1){
 
 
-            
             for(var y = 17; y >  ((this.grid.length-1)-game_Manager.level); y--){
-
+ 
                 for(var x = 0; x < 10; x++){
 
-                    this.grid[y][x] = (this. getRandomInt(2) == 0?0:this. getRandomInt(14));
+                    this.grid[y][x] = (this.getRandomInt(2) == 0?0:this.getRandomInt(14));
 
                 }
 
            }
             
-
-            
-
 
         }
 

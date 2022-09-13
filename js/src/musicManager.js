@@ -11,8 +11,11 @@ class musicManager{
         "Type_A.ogg", // 1
         "typeB.mp3", // 2
         "typeC.ogg", // 3
-        "Karinka.mp3", // 4
+        
         "Loginska.mp3", //5
+        "Karinka.mp3", // 4
+
+        
         "typeD.mp3", // 6
         "Game_Over.ogg", // 7
         "High_Scores.ogg" // 8
