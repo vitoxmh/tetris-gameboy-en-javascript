@@ -286,7 +286,7 @@ class tetris{
   
   
  
-              console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|X-:"+this.grid[this.player.pos.y+2][this.player.pos.x+3]+"|Rotacion:"+this.statusRotate+"|X+:"+this.grid[this.player.pos.y+2][this.player.pos.x-1])
+              //console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|X-:"+this.grid[this.player.pos.y+2][this.player.pos.x+3]+"|Rotacion:"+this.statusRotate+"|X+:"+this.grid[this.player.pos.y+2][this.player.pos.x-1])
 
                 
             

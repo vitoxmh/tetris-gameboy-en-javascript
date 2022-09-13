@@ -554,7 +554,7 @@ class setScoreScene extends scoreScene{
         var data = {name:name, score: game_Manager.score, level: game_Manager.level, mode: game_Manager.mode};
 
 
-        fetch('http://localhost/tetris/api/',{
+        /*fetch('http://localhost/tetris/api/',{
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data),
         })
@@ -562,7 +562,7 @@ class setScoreScene extends scoreScene{
         .then(commits => { 
       
         
-        });
+        });*/
 
        
     }
