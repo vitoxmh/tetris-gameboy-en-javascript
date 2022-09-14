@@ -5,12 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .screen{
+            display:flex;
+        }
+
+        .controls{
+            padding: 30px 0 0 18px;
+        }
+    </style>
 </head>
 
 <body>
   
 <div class="screen">
-    <canvas id="game" width="799" height="719"></canvas>
+    <div>
+        <canvas id="game" width="799" height="719"></canvas>
+    </div>
+    <div class="controls">
+        <p><strong>Controls</strong></p>
+        <p><strong>Enter:</strong> Play game</p>
+        <p><strong>Up arrow:</strong> Rotate</p>
+        <p><strong>Left arrow:</strong> Move piece left</p>
+        <p><strong>Right arrow:</strong> Move piece right</p>
+        <p><strong>Down arrow:</strong> Drop</p>        
+    </div>
 </div>
 <script src="js/main-dist.js"></script>
 
