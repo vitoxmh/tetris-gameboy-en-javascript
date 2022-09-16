@@ -286,7 +286,7 @@ class tetris{
   
   
  
-              //console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|X-:"+this.grid[this.player.pos.y+2][this.player.pos.x+3]+"|Rotacion:"+this.statusRotate+"|X+:"+this.grid[this.player.pos.y+2][this.player.pos.x-1])
+              console.log("x:"+this.player.pos.x+",y:"+(this.player.pos.y+2)+"|X-:"+this.grid[this.player.pos.y+2][this.player.pos.x+3]+"|Rotacion:"+this.statusRotate+"|X+:"+this.grid[this.player.pos.y+2][this.player.pos.x-1])
 
                 
             
@@ -743,7 +743,7 @@ class tetris{
 
     playerReset(){
         const pieces = 'ILJOTSZ';
-        //const pieces = 'Z';
+        //const pieces = 'L';
    
   
         this.statusRotate  = 0;
@@ -1323,6 +1323,7 @@ class tetris{
        
         if((this.temIndice == "I" && this.player.pos.x > 7) || (this.temIndice == "I" && this.player.pos.x == -1)){
 
+           
             return false;
 
         }
@@ -1331,7 +1332,8 @@ class tetris{
        if(this.temIndice == "I"){
 
                 if(this.grid[this.player.pos.y+3][this.player.pos.x] != 0 && this.grid[this.player.pos.y+3][this.player.pos.x+2] != 0){
-                  
+                    
+                    
                     return false;
 
                 }
@@ -1343,7 +1345,8 @@ class tetris{
 
                
             if(this.grid[this.player.pos.y+1][this.player.pos.x] != 0 && this.grid[this.player.pos.y+1][this.player.pos.x+3] != 0){
-                     
+                    
+               
                 return false;
 
             }
@@ -1351,10 +1354,7 @@ class tetris{
 
             if(this.player.pos.x == -1 && this.statusRotate == 1){
 
-                return false;
-
-            }else if(this.player.pos.x == 0 && this.statusRotate == 3){
-                
+               
                 return false;
 
             }
@@ -1363,6 +1363,7 @@ class tetris{
 
             if(this.grid[this.player.pos.y+1][this.player.pos.x-1] != 0 && this.grid[this.player.pos.y+1][this.player.pos.x+2] != 0){
 
+               
                 return false;
 
             }
@@ -1378,7 +1379,7 @@ class tetris{
 
                
 
-        
+             
                     return false;
                 
                    
@@ -1400,7 +1401,7 @@ class tetris{
 
                
 
-        
+                console.log("8")
                     return false;
                 
                    

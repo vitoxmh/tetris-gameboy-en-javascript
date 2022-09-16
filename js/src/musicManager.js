@@ -8,7 +8,7 @@ class musicManager{
 
     music = [
         "intro.ogg", // 0
-        "Type_A.ogg", // 1
+        "typeA.mp3", // 1
         "typeB.mp3", // 2
         "typeC.ogg", // 3
         
@@ -97,7 +97,9 @@ class musicManager{
 
 
         this.myMusic[indexMusic].loop = true;
-        this.myMusic[indexMusic].play(); 
+        this.myMusic[indexMusic].play();
+
+ 
 
     }
 
@@ -128,7 +130,7 @@ class musicManager{
 
     }
 
-
+ 
 
     loop(status){
 
